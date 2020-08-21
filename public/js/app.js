@@ -1914,6 +1914,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "App"
 });
@@ -19587,7 +19588,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("Start\n  "), _c("router-view")], 1)
+  return _c("div", [_vm._v("\n  Start\n  "), _c("router-view")], 1)
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -34869,7 +34870,7 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // alert(
 
 
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
-  el: '#app',
+  el: "#app",
   components: {
     App: _components_App__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
