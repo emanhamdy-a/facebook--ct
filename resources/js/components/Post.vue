@@ -32,7 +32,7 @@
       </div>
 
       <div>
-        <p>123 comments</p>
+        <p>123 </p>
       </div>
     </div>
 

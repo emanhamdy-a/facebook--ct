@@ -20,6 +20,7 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         // this line get error when uncommit changeapi
+
         // \Laravel\Passport\Http\Middleware\CreateFreshApiToken::class,
 
     ];

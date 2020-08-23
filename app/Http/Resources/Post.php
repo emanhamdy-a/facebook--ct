@@ -16,6 +16,7 @@ class Post extends JsonResource
     public function toArray($request)
     {
       //  $usernm=new UserResource($this->user);
+
         return [
           'data'=>[
             'type'=>'posts',
