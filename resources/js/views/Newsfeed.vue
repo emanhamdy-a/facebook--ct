@@ -25,7 +25,7 @@ export default {
   methods: {
     },
   mounted(){
-    axios.get('/posts')
+    axios.get('/wb/posts')
     .then(res=>{
       console.log('done');
       this.loading=false;

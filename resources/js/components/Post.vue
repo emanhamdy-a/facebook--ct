@@ -3,7 +3,7 @@
     <div class="flex flex-col p-4">
       <div class="flex items-center">
         <div class="w-8">
-          <img src="images\person1.jpeg" alt="profile image for user" class="w-8 h-8 object-cover rounded-full"/>
+          <img src="http://127.0.0.1:8000/images\person1.jpeg" alt="profile image for user" class="w-8 h-8 object-cover rounded-full"/>
         </div>
         <div class="ml-6">
           <div class="text-sm font-bold">{{ post.data.attributes.posted_by.data.attributes.name }}</div>
@@ -16,7 +16,7 @@
     </div>
 
     <div class="w-full" v-if="post.data.attributes.image">
-      <img :src="'images/' + post.data.attributes.image" alt="post image" class="w-full"/>
+      <img :src="'http://127.0.0.1:8000/images/' + post.data.attributes.image" alt="post image" class="w-full"/>
     </div>
 
     <div class="px-4 pt-2 flex justify-between text-gray-700 text-sm">

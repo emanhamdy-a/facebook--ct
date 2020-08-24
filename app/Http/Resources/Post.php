@@ -13,24 +13,24 @@ class Post extends JsonResource
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
-    public function toArray($request)
-    {
-      //  $usernm=new UserResource($this->user);
+  public function toArray($request)
+  {
+    //  $usernm=new UserResource($this->user);
 
-        return [
-          'data'=>[
-            'type'=>'posts',
-            'post_id'=>$this->id,
-            'attributes'=>[
-              'posted_by'=>new UserResource($this->user),
-              'body' => $this->body,
-              'image'=>$this->image,
-              'posted_at'=>$this->created_at->diffForHumans(),
-            ],
-            'links' => [
-              'self' => url("/posts/" . $this->id),
-            ]
-          ]
-        ];
-    }
+    return [
+      'data'=>[
+        'type'=>'posts',
+        'post_id'=>$this->id,
+        'attributes'=>[
+          'posted_by'=>new UserResource($this->user),
+          'body' => $this->body,
+          'image'=>$this->image,
+          'posted_at'=>$this->created_at->diffForHumans(),
+        ]
+      ],
+      'links' => [
+        'self' => url("/posts/" . $this->id),
+      ]
+    ];
+  }
 }

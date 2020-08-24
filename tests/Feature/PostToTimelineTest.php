@@ -7,12 +7,12 @@ use App\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class PostToTimelineTest extends TestCase
 {
-  use RefreshDatabase;
+  use DatabaseTransactions;
+  // use RefreshDatabase;
   /** @test */
   public function a_user_can_post_a_text_post()
   {
@@ -46,11 +46,11 @@ class PostToTimelineTest extends TestCase
             ]
           ],
           'body' => 'Testing Body',
+        ]
         ],
         'links' => [
           'self' => url("/posts/" . $post->id),
         ]
-      ]
     ]);
   }
 }

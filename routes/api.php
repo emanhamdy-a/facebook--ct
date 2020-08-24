@@ -1,13 +1,21 @@
 <?php
-
-use Illuminate\Http\Request;
 // Auth::routes();
-Route::middleware('auth:api')->group(function(){
-  Route::get('/user', function (Request $request) {
-    return $request->user();
+
+Route::middleware('auth:api')->group(function () {
+
+  Route::get('auth-user', 'AuthUserController@show');
+
+  Route::apiResources([
+    '/posts' => 'PostController',
+    '/posts/{post}/like' => 'PostLikeController',
+    '/posts/{post}/comment' => 'PostCommentController',
+    // '/users{user}' => 'UserController',
+    '/users/{user}/posts' => 'UserPostController',
+    '/friend-request' => 'FriendRequestController',
+    '/friend-request-response' => 'FriendRequestResponseController',
+    '/user-images' => 'UserImageController',
+  ]);
+
 });
-  // Route::post('/postat', 'PostController@index');
-  Route::post('/posts', 'PostController@store');
-  Route::get('/posts', 'PostController@index');
-});
+
 

@@ -1,14 +1,29 @@
 <?php
 // use Illuminate\Support\Facades\Route;
 
-// Auth::routes();
+Auth::routes();
 
 Route::middleware('auth')->group(function(){
-  Route::get('/posts', 'PostController@index');
+  Route::prefix('wb')->group(function () {
+    Route::get('auth-user', 'AuthUserController@show');
+    Route::Resources([
+      '/posts' => 'PostController',
+      '/posts/{post}/like' => 'PostLikeController',
+      '/posts/{post}/comment' => 'PostCommentController',
+      '/users' => 'UserController',
+      '/users/{user}/posts' => 'UserPostController',
+      '/friend-request' => 'FriendRequestController',
+      '/friend-request-response' => 'FriendRequestResponseController',
+      '/user-images' => 'UserImageController',
+    ]);
+  });
 
+  Route::get('{any}', 'AppController@index')
+  ->where('any','.*')
+  ->middleware('auth')
+  ->name('home');
 });
 
-Route::get('{any}', 'AppController@index')
-->where('any','.*')
-->middleware('auth')
-->name('home');
+
+
+

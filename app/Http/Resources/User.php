@@ -20,10 +20,10 @@ class User extends JsonResource
           'user_id'=>$this->id,
           'attributes'=>[
             'name' => $this->name,
-          ],
-          'links' => [
-            'self' => url("/users/" . $this->id),
           ]
+        ],
+        'links' => [
+          'self' => url("/users/" . $this->id),
         ]
       ];
     }

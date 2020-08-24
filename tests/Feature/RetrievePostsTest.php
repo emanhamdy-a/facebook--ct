@@ -71,5 +71,5 @@ class RetrievePostsTest extends TestCase
 }
 // vendor\bin\phpunit Tests\Feature\\
 // vendor\bin\phpunit --filter RetrievePostsTest
-// vendor\bin\phpunit --filter a_user_can_only_retrieve_their_posts
 // vendor\bin\phpunit --filter a_user_can_retrieve_posts
+// vendor\bin\phpunit --filter a_user_can_only_retrieve_their_posts
