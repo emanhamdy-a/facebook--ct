@@ -27,7 +27,7 @@ export default {
   mounted(){
     axios.get('/wb/posts')
     .then(res=>{
-      console.log('done');
+      console.log('api');
       this.loading=false;
       this.posts=res.data;
     })

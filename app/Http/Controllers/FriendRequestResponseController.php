@@ -2,51 +2,53 @@
 
 namespace App\Http\Controllers;
 
-use App\Exceptions\FriendRequestNotFoundException;
 use App\Friend;
-use App\Http\Resources\Friend as FriendResource;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Http\Resources\Friend as FriendResource;
+use App\Exceptions\FriendRequestNotFoundException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class FriendRequestResponseController extends Controller
 {
-    public function store()
-    {
-        $data = request()->validate([
-            'user_id' => 'required',
-            'status' => 'required',
-        ]);
+  public function store()
+  {
+    $data = request()->validate([
+      'user_id' => 'required',
+      'status' => 'required',
+    ]);
 
-        try {
-            $friendRequest = Friend::where('user_id', $data['user_id'])
-                ->where('friend_id', auth()->user()->id)
-                ->firstOrFail();
-        } catch (ModelNotFoundException $e) {
-            throw new FriendRequestNotFoundException();
-        }
-
-        $friendRequest->update(array_merge($data, [
-            'confirmed_at' => now(),
-        ]));
-
-        return new FriendResource($friendRequest);
+    try {
+      $friendRequest = Friend::where('user_id', $data['user_id'])
+        ->where('friend_id', auth()->user()->id)
+        ->firstOrFail();
+    } catch (ModelNotFoundException $e) {
+        throw new FriendRequestNotFoundException();
     }
 
-    public function destroy()
-    {
-        $data = request()->validate([
-            'user_id' => 'required',
-        ]);
+    $friendRequest->update(array_merge($data,['confirmed_at' => now()]));
 
-        try {
-            Friend::where('user_id', $data['user_id'])
-                ->where('friend_id', auth()->user()->id)
-                ->firstOrFail()
-                ->delete();
-        } catch (ModelNotFoundException $e) {
-            throw new FriendRequestNotFoundException();
-        }
+    // $friendRequest->confirmed_at=now();
+    // $friendRequest->status=1;
+    // $friendRequest->save();
+    return new FriendResource($friendRequest);
+  }
 
-        return response()->json([], 204);
-    }
+  public function destroy()
+  {
+      $data = request()->validate([
+          'user_id' => 'required',
+      ]);
+
+      try {
+          Friend::where('user_id', $data['user_id'])
+              ->where('friend_id', auth()->user()->id)
+              ->firstOrFail()
+              ->delete();
+      } catch (ModelNotFoundException $e) {
+          throw new FriendRequestNotFoundException();
+      }
+
+      return response()->json([], 204);
+  }
 }

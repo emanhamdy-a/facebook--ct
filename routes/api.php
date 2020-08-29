@@ -9,7 +9,7 @@ Route::middleware('auth:api')->group(function () {
     '/posts' => 'PostController',
     '/posts/{post}/like' => 'PostLikeController',
     '/posts/{post}/comment' => 'PostCommentController',
-    // '/users{user}' => 'UserController',
+    '/users' => 'UserController',
     '/users/{user}/posts' => 'UserPostController',
     '/friend-request' => 'FriendRequestController',
     '/friend-request-response' => 'FriendRequestResponseController',

@@ -2,9 +2,10 @@
 
 namespace App;
 
-use Laravel\Passport\HasApiTokens;
+use App\Post;
 // changeapi
 
+use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -12,7 +13,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
 
-  use  HasApiTokens,Notifiable;
   //
   use HasApiTokens, Notifiable;
 
@@ -30,5 +30,8 @@ class User extends Authenticatable
 
     public function posts(){
       return $this->hasMany(Post::class);
+    }
+    public function friends(){
+      return $this->belongsToMany(User::class,'friends','friend_id','user_id');
     }
 }
