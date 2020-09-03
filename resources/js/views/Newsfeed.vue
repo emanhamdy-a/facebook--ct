@@ -1,40 +1,30 @@
 <template>
   <div class=" flex flex-col items-center py-4">
     <Newpost></Newpost>
-    <p v-if="loading">Posts loading ...</p>
-    <Post v-else v-for="post in posts.data" :key="post.data.post_id" :post="post"></Post>
+    <p v-if="newsStatus.newsStatus === 'loading'">Posts loading ...</p>
+    <Post v-else-if="newsStatus.newsStatus === 'success'" v-for="(post,postKey) in posts.data" :key="postKey" :post="post"></Post>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import Post from '../components/Post'
 import Newpost from '../components/Newpost'
-
 export default {
   components: {
     Post, Newpost },
   name: "Newsfeed",
-  data() {
-    return {
-      posts:[],
-      loading:true,
-    };
-  },
-    // alert(window.laravel);
-    // axios.get('/api/posts')
+
   methods: {
     },
   mounted(){
-    axios.get('/wb/posts')
-    .then(res=>{
-      console.log('api');
-      this.loading=false;
-      this.posts=res.data;
+    this.$store.dispatch('fetchNewsPosts');
+  },
+  computed:{
+    ...mapGetters({
+      posts:'newsPosts',
+      newsStatus:'newsStatus',
     })
-    .catch(error=>{
-      this.loading=false;
-      console.log('unable to fech posts');
-    });
   }
 };
 </script>

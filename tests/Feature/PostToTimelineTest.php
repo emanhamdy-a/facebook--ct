@@ -19,18 +19,13 @@ class PostToTimelineTest extends TestCase
     $this->withoutExceptionHandling();
     $this->actingAs($user=factory(User::class)->create(),'api');
     $response=$this->post('/api/posts',[
-      'data' => [
-        'type' => 'posts',
-        'attributes' => [
-          'body' => 'Testing Body',
-        ]
-      ],
+        'body' => 'Testing Body',
     ]);
 
     $post=Post::first();
     // $this->assertCount(1, Post::all());
 
-    $this->assertCount(1, Post::all());
+    // $this->assertCount(1, Post::all());
     $this->assertEquals($user->id, $post->user_id);
     $this->assertEquals('Testing Body', $post->body);
     $response->assertStatus(201)->assertJson([
@@ -60,6 +55,6 @@ class PostToTimelineTest extends TestCase
 
 // in terminal
 
-// vendor\bin\phpunit --filter a_user_can_post_a_text_post\\
+// vendor\bin\phpunit --filter a_user_can_post_a_text_post
 // phpunit Tests\Feature\PostToTimelineTest.php
 // vendor\bin\phpunit Tests\Feature\\

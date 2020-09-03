@@ -16,6 +16,7 @@ class User extends JsonResource
      */
     public function toArray($request)
     {
+      // dd($this->id);
       return [
         'data'=>[
           'type'=>'users',

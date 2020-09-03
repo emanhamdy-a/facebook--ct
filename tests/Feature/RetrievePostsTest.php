@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Post;
 use App\User;
+use App\Friend;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -58,7 +59,14 @@ class RetrievePostsTest extends TestCase
   public function a_user_can_only_retrieve_their_posts()
   {
     $this->actingAs($user = factory(\App\User::class)->create(), 'api');
-    $posts = factory(\App\Post::class)->create();
+    $anotherUser=factory(\App\User::class)->create();
+    $posts = factory(\App\Post::class)->create(['user_id'=>$anotherUser->id]);
+    Friend::create([
+      'user_id'=>$user->id,
+      'friend_id'=>$anotherUser->id,
+      'confirmed_at'=>now(),
+      'status'=>1,
+    ]);
     $response = $this->get('/api/posts');
     $response->assertStatus(200)
       ->assertJson([

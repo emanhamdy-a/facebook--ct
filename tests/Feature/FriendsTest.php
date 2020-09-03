@@ -43,7 +43,7 @@ class FriendsTest extends TestCase
         ],
       ]);
   }
-  /** @ */
+  /** @test */
   public function a_user_can_send_a_friend_request_only_once()
   {
       $this->actingAs($user = factory(\App\User::class)->create(), 'api');
@@ -307,3 +307,4 @@ class FriendsTest extends TestCase
 // vendor\bin\phpunit --filter an_inverse_friendship_is_retrieved_when_fetching_the_profil
 // vendor\bin\phpunit --filter friend_requests_can_be_ignored
 // vendor\bin\phpunit --filter only_the_recipient_can_ignore_a_friend_request
+// vendor\bin\phpunit --filter a_user_can_send_a_friend_request_only_once

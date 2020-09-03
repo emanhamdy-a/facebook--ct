@@ -12,26 +12,28 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-
   //
   use HasApiTokens, Notifiable;
 
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
+  protected $fillable = [
+      'name', 'email', 'password',
+  ];
 
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+  protected $hidden = [
+      'password', 'remember_token',
+  ];
 
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+  protected $casts = [
+      'email_verified_at' => 'datetime',
+  ];
 
-    public function posts(){
-      return $this->hasMany(Post::class);
-    }
-    public function friends(){
-      return $this->belongsToMany(User::class,'friends','friend_id','user_id');
-    }
+  public function posts(){
+    return $this->hasMany(Post::class);
+  }
+  public function friends(){
+    return $this->belongsToMany(User::class,'friends','friend_id','user_id');
+  }
+  public function likedPosts(){
+    return $this->belongsToMany(Post::class,'likes','user_id','post_id');
+  }
 }

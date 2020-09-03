@@ -13,6 +13,7 @@ use App\Http\Resources\Friend as FriendResource;
 
 class FriendRequestController extends Controller
 {
+
   public function store()
   {
     $data = request()->validate([
