@@ -1,20 +1,12 @@
 const state={
   user:null,
   userStatus:null,
-  posts:null,
-  postsStatus:false,
   // friendButtonText:null,
 };
 
 const getters={
   user:state=>{
     return state.user;
-  },
-  posts:state=>{
-    return state.posts;
-  },
-  postsStatus:state=>{
-    return state.postsStatus;
   },
   status:state=>{
     return {
@@ -57,18 +49,7 @@ const actions={
       commit('setUserStatus','error');
     });
   },
-  fetchUserPosts({commit,state},userId){
-    commit('setPostsStatus','loading');
-    axios.get('/wb/users/' + userId + '/posts')
-    .then(res=>{
-      commit('setPosts',res.data);
-      commit('setPostsStatus','success');
-    })
-    .catch(error=>{
-      commit('setPostsStatus','error');
-    });
 
-  },
   sendFriendRequest({commit,getters},friendId){
     if(getters.friendButtonText !== 'Add Friend'){
       return;
@@ -117,13 +98,7 @@ const mutations={
   },
   setUser(state,user){
     state.user=user;
-  },
-  setPostsStatus(state,status){
-    state.postsStatus=status;
-  },
-  setPosts(state,data){
-    state.posts=data;
-  },
+  }
   // setfriendButtonText(state,text){
   //   state.friendButtonText=text;
   // },

@@ -1,17 +1,17 @@
 const state={
-  newsPosts:null,
-  newsPostsStatus:null,
+  posts:null,
+  postsStatus:null,
   postMessage:'',
   Likes:null,
 };
 
 const getters={
-  newsPosts:state=>{
-    return state.newsPosts;
+  posts:state=>{
+    return state.posts;
   },
   newsStatus:state=>{
     return{
-      newsStatus:state.newsPostsStatus,
+      newsStatus:state.postsStatus,
     }
   },
   postMessage:state=>{
@@ -23,6 +23,18 @@ const getters={
 };
 
 const actions={
+  fetchUserPosts({commit,state},userId){
+    commit('setPostsStatus','loading');
+    axios.get('/wb/users/' + userId + '/posts')
+    .then(res=>{
+      commit('setPosts',res.data);
+      commit('setPostsStatus','success');
+    })
+    .catch(error=>{
+      commit('setPostsStatus','error');
+    });
+
+  },
   fetchNewsPosts({commit,state}){
     commit('setPostsStatus','loading');
     axios.get('/wb/posts')
@@ -55,24 +67,43 @@ const actions={
       // commit('setPostsStatus','error');
     });
   },
+  commentPost({commit,state},data){
+    axios.post('/wb/posts/'+ data.postId + '/comment',{body:data.body})
+    .then(res=>{
+      commit('pushComments',{ comments:res.data,postKey:data.postKey});
+      // commit('setPostsStatus','success');
+    })
+    .catch(error=>{
+      // commit('setPostsStatus','error');
+    });
+  },
 };
 
 const mutations={
   setPostsStatus(state,status){
-    state.newsPostsStatus=status;
+    state.postsStatus=status;
   },
   setPosts(state,posts){
-    state.newsPosts=posts;
+    state.posts=posts;
   },
   updateMessage(state,message){
     state.postMessage=message;
   },
   pushPost(state,post){
-    state.newsPosts.data.unshift(post);
+    state.posts.data.unshift(post);
   },
   pushLikes(state,data){
     // console.log(data.postKey);
-    state.newsPosts.data[data.postKey].data.attributes.likes=data.likes;
+    state.posts.data[data.postKey].data.attributes.likes=data.likes;
+  },
+  pushComments(state,data){
+    state.posts.data[data.postKey].data.attributes.comments=data.comments;
+  },
+  setPostsStatus(state,status){
+    state.postsStatus=status;
+  },
+  setPosts(state,data){
+    state.posts=data;
   },
 };
 

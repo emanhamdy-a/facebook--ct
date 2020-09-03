@@ -2135,9 +2135,85 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Post",
-  props: ['post']
+  props: ["post"],
+  data: function data() {
+    return {
+      comments: false,
+      commentBody: ""
+    };
+  }
 });
 
 /***/ }),
@@ -2208,7 +2284,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.$store.dispatch('fetchNewsPosts');
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
-    posts: 'newsPosts',
+    posts: 'posts',
     newsStatus: 'newsStatus'
   }))
 });
@@ -20985,12 +21061,20 @@ var render = function() {
           _c("div", { staticClass: "ml-6" }, [
             _c("div", { staticClass: "text-sm font-bold" }, [
               _vm._v(
-                _vm._s(_vm.post.data.attributes.posted_by.data.attributes.name)
+                "\n          " +
+                  _vm._s(
+                    _vm.post.data.attributes.posted_by.data.attributes.name
+                  ) +
+                  "\n        "
               )
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "text-sm text-gray-600" }, [
-              _vm._v(_vm._s(_vm.post.data.attributes.posted_at))
+              _vm._v(
+                "\n          " +
+                  _vm._s(_vm.post.data.attributes.posted_at) +
+                  "\n        "
+              )
             ])
           ])
         ]),
@@ -21045,7 +21129,14 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _vm._m(1)
+          _c("div", [
+            _c("p", [
+              _vm._v(
+                _vm._s(_vm.post.data.attributes.comments.comment_count) +
+                  " comments"
+              )
+            ])
+          ])
         ]
       ),
       _vm._v(" "),
@@ -21100,7 +21191,12 @@ var render = function() {
             "button",
             {
               staticClass:
-                "flex justify-center py-2 rounded-lg text-sm text-gray-700 w-full hover:bg-gray-200 focus:outline-none"
+                "flex justify-center py-2 rounded-lg text-sm text-gray-700 w-full hover:bg-gray-200 focus:outline-none",
+              on: {
+                click: function($event) {
+                  _vm.comments = !_vm.comments
+                }
+              }
             },
             [
               _c(
@@ -21126,8 +21222,114 @@ var render = function() {
             ]
           )
         ]
-      )
-    ]
+      ),
+      _vm._v(" "),
+      _vm.comments
+        ? _c("div", { staticClass: "border-t border-gray-400 p-4 pt-2" }, [
+            _c("div", { staticClass: "flex" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.commentBody,
+                    expression: "commentBody"
+                  }
+                ],
+                staticClass: "w-full pl-4 h-8 bg-gray-200 rounded",
+                attrs: {
+                  placeholder: "Write your comment",
+                  type: "text",
+                  name: "comment"
+                },
+                domProps: { value: _vm.commentBody },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.commentBody = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _vm.commentBody
+                ? _c(
+                    "button",
+                    {
+                      staticClass:
+                        " bg-gray-200 px-2 ml-2 py-1 rounded focus:outline-none",
+                      on: {
+                        click: function($event) {
+                          _vm.$store.dispatch("commentPost", {
+                            body: _vm.commentBody,
+                            postId: _vm.post.data.post_id,
+                            postKey: _vm.$vnode.key
+                          })
+                          _vm.commentBody = ""
+                        }
+                      }
+                    },
+                    [_vm._v("\n        Post\n      ")]
+                  )
+                : _vm._e()
+            ])
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm._l(_vm.post.data.attributes.comments.data, function(comment, index) {
+        return _c(
+          "div",
+          { key: index, staticClass: "flex my-4 items-center" },
+          [
+            _vm._m(1, true),
+            _vm._v(" "),
+            _c("div", { staticClass: "ml-4 flex-1" }, [
+              _c(
+                "div",
+                { staticClass: "bg-gray-200 rounded-lg p-2 text-sm mx-3" },
+                [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "text-blue-700 font-bold",
+                      attrs: {
+                        href:
+                          "/users/" +
+                          comment.data.attributes.commented_by.data.user_id
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n          \n          " +
+                          _vm._s(
+                            comment.data.attributes.commented_by.data.attributes
+                              .name
+                          ) +
+                          "\n        "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "inline" }, [
+                    _vm._v(
+                      "\n          " +
+                        _vm._s(comment.data.attributes.body) +
+                        "\n        "
+                    )
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "text-xs pl-5" }, [
+                _c("p", [_vm._v(_vm._s(comment.data.attributes.commented_at))])
+              ])
+            ])
+          ]
+        )
+      })
+    ],
+    2
   )
 }
 var staticRenderFns = [
@@ -21149,7 +21351,12 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [_c("p", [_vm._v("123 ")])])
+    return _c("div", { staticClass: "w-8" }, [
+      _c("img", {
+        staticClass: "w-8 h-8 ml-4 rounded-full object-cover",
+        attrs: { src: "http://127.0.0.1:8000/images/person1.jpeg", alt: "" }
+      })
+    ])
   }
 ]
 render._withStripped = true
@@ -38419,19 +38626,23 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+var _mutations;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var state = {
-  newsPosts: null,
-  newsPostsStatus: null,
+  posts: null,
+  postsStatus: null,
   postMessage: '',
   Likes: null
 };
 var getters = {
-  newsPosts: function newsPosts(state) {
-    return state.newsPosts;
+  posts: function posts(state) {
+    return state.posts;
   },
   newsStatus: function newsStatus(state) {
     return {
-      newsStatus: state.newsPostsStatus
+      newsStatus: state.postsStatus
     };
   },
   postMessage: function postMessage(state) {
@@ -38442,9 +38653,20 @@ var getters = {
   }
 };
 var actions = {
-  fetchNewsPosts: function fetchNewsPosts(_ref) {
+  fetchUserPosts: function fetchUserPosts(_ref, userId) {
     var commit = _ref.commit,
         state = _ref.state;
+    commit('setPostsStatus', 'loading');
+    axios.get('/wb/users/' + userId + '/posts').then(function (res) {
+      commit('setPosts', res.data);
+      commit('setPostsStatus', 'success');
+    })["catch"](function (error) {
+      commit('setPostsStatus', 'error');
+    });
+  },
+  fetchNewsPosts: function fetchNewsPosts(_ref2) {
+    var commit = _ref2.commit,
+        state = _ref2.state;
     commit('setPostsStatus', 'loading');
     axios.get('/wb/posts').then(function (res) {
       commit('setPosts', res.data);
@@ -38453,9 +38675,9 @@ var actions = {
       commit('setPostsStatus', 'error');
     });
   },
-  postMessage: function postMessage(_ref2) {
-    var commit = _ref2.commit,
-        state = _ref2.state;
+  postMessage: function postMessage(_ref3) {
+    var commit = _ref3.commit,
+        state = _ref3.state;
     axios.post('/wb/posts', {
       body: state.postMessage
     }).then(function (res) {
@@ -38464,9 +38686,9 @@ var actions = {
     })["catch"](function (error) {// commit('setPostsStatus','error');
     });
   },
-  likePost: function likePost(_ref3, data) {
-    var commit = _ref3.commit,
-        state = _ref3.state;
+  likePost: function likePost(_ref4, data) {
+    var commit = _ref4.commit,
+        state = _ref4.state;
     axios.post('/wb/posts/' + data.postId + '/like').then(function (res) {
       commit('pushLikes', {
         likes: res.data,
@@ -38474,26 +38696,46 @@ var actions = {
       }); // commit('setPostsStatus','success');
     })["catch"](function (error) {// commit('setPostsStatus','error');
     });
+  },
+  commentPost: function commentPost(_ref5, data) {
+    var commit = _ref5.commit,
+        state = _ref5.state;
+    axios.post('/wb/posts/' + data.postId + '/comment', {
+      body: data.body
+    }).then(function (res) {
+      commit('pushComments', {
+        comments: res.data,
+        postKey: data.postKey
+      }); // commit('setPostsStatus','success');
+    })["catch"](function (error) {// commit('setPostsStatus','error');
+    });
   }
 };
-var mutations = {
+var mutations = (_mutations = {
   setPostsStatus: function setPostsStatus(state, status) {
-    state.newsPostsStatus = status;
+    state.postsStatus = status;
   },
   setPosts: function setPosts(state, posts) {
-    state.newsPosts = posts;
+    state.posts = posts;
   },
   updateMessage: function updateMessage(state, message) {
     state.postMessage = message;
   },
   pushPost: function pushPost(state, post) {
-    state.newsPosts.data.unshift(post);
+    state.posts.data.unshift(post);
   },
   pushLikes: function pushLikes(state, data) {
     // console.log(data.postKey);
-    state.newsPosts.data[data.postKey].data.attributes.likes = data.likes;
+    state.posts.data[data.postKey].data.attributes.likes = data.likes;
+  },
+  pushComments: function pushComments(state, data) {
+    state.posts.data[data.postKey].data.attributes.comments = data.comments;
   }
-};
+}, _defineProperty(_mutations, "setPostsStatus", function setPostsStatus(state, status) {
+  state.postsStatus = status;
+}), _defineProperty(_mutations, "setPosts", function setPosts(state, data) {
+  state.posts = data;
+}), _mutations);
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: state,
   getters: getters,
@@ -38514,20 +38756,12 @@ var mutations = {
 __webpack_require__.r(__webpack_exports__);
 var state = {
   user: null,
-  userStatus: null,
-  posts: null,
-  postsStatus: false // friendButtonText:null,
+  userStatus: null // friendButtonText:null,
 
 };
 var getters = {
   user: function user(state) {
     return state.user;
-  },
-  posts: function posts(state) {
-    return state.posts;
-  },
-  postsStatus: function postsStatus(state) {
-    return state.postsStatus;
   },
   status: function status(state) {
     return {
@@ -38567,20 +38801,9 @@ var actions = {
       commit('setUserStatus', 'error');
     });
   },
-  fetchUserPosts: function fetchUserPosts(_ref2, userId) {
+  sendFriendRequest: function sendFriendRequest(_ref2, friendId) {
     var commit = _ref2.commit,
-        state = _ref2.state;
-    commit('setPostsStatus', 'loading');
-    axios.get('/wb/users/' + userId + '/posts').then(function (res) {
-      commit('setPosts', res.data);
-      commit('setPostsStatus', 'success');
-    })["catch"](function (error) {
-      commit('setPostsStatus', 'error');
-    });
-  },
-  sendFriendRequest: function sendFriendRequest(_ref3, friendId) {
-    var commit = _ref3.commit,
-        getters = _ref3.getters;
+        getters = _ref2.getters;
 
     if (getters.friendButtonText !== 'Add Friend') {
       return;
@@ -38593,9 +38816,9 @@ var actions = {
     })["catch"](function (error) {// commit('setfriendButtonText','Add Friend');
     });
   },
-  acceptFriendRequest: function acceptFriendRequest(_ref4, userId) {
-    var commit = _ref4.commit,
-        state = _ref4.state;
+  acceptFriendRequest: function acceptFriendRequest(_ref3, userId) {
+    var commit = _ref3.commit,
+        state = _ref3.state;
     axios.post('/wb/friend-request-responce', {
       data: {
         'user_id': userId
@@ -38604,9 +38827,9 @@ var actions = {
       commit('setUserFriendShip', res.data);
     })["catch"](function (error) {});
   },
-  ignoreFriendRequest: function ignoreFriendRequest(_ref5, userId) {
-    var commit = _ref5.commit,
-        state = _ref5.state;
+  ignoreFriendRequest: function ignoreFriendRequest(_ref4, userId) {
+    var commit = _ref4.commit,
+        state = _ref4.state;
     axios["delete"]('/wb/friend-request-responce/delete', {
       'user_id': userId
     }).then(function (res) {
@@ -38632,12 +38855,6 @@ var mutations = {
   },
   setUser: function setUser(state, user) {
     state.user = user;
-  },
-  setPostsStatus: function setPostsStatus(state, status) {
-    state.postsStatus = status;
-  },
-  setPosts: function setPosts(state, data) {
-    state.posts = data;
   } // setfriendButtonText(state,text){
   //   state.friendButtonText=text;
   // },
