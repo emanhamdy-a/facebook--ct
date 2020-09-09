@@ -49,7 +49,6 @@ const actions={
       commit('setUserStatus','error');
     });
   },
-
   sendFriendRequest({commit,getters},friendId){
     if(getters.friendButtonText !== 'Add Friend'){
       return;
@@ -98,7 +97,8 @@ const mutations={
   },
   setUser(state,user){
     state.user=user;
-  }
+  },
+
   // setfriendButtonText(state,text){
   //   state.friendButtonText=text;
   // },

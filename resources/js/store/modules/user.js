@@ -17,13 +17,19 @@ const actions={
     })
     .catch(err=>{
     })
-  }
+  },
+  change_cover_image({commit},cover_image){
+    commit('change_cover_img',cover_image);
+  },
 };
 
 const mutations={
   setAuthUser(state,user){
     state.user=user;
-  }
+  },
+  change_profile_image(state,cover_img){
+    state.user.data.attributes.cover_image.data=cover_img;
+  },
 };
 
 export default {

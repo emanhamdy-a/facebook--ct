@@ -13,7 +13,7 @@
   <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
   <!-- Styles -->
   <link rel="stylesheet" href="<?php echo e(asset('css/app.css')); ?>">
-  <!-- <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>"> -->
+  <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
 </head>
 
 <body class="bg-gray-200 text-gray-800 antialiased font-sans">

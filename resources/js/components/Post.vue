@@ -4,7 +4,7 @@
       <div class="flex items-center">
         <div class="w-8">
           <img
-            src="http://127.0.0.1:8000/images\person1.jpeg"
+            :src="post.data.attributes.posted_by.data.attributes.profile_image.data.attributes.path"
             alt="profile image for user"
             class="w-8 h-8 object-cover rounded-full"
           />
@@ -112,7 +112,7 @@
       :key="index">
       <div class="w-8">
         <img
-          src="http://127.0.0.1:8000/images/person1.jpeg"
+          :src="authUser.data.attributes.profile_image.data.attributes.path"
           class="w-8 h-8 ml-4 rounded-full object-cover"
           alt=""
         />
@@ -120,10 +120,8 @@
       <div class="ml-4 flex-1">
         <div class="bg-gray-200 rounded-lg p-2 text-sm mx-3">
           <a
-            :href="
-              '/users/' + comment.data.attributes.commented_by.data.user_id"
+            :href="'/users/' + comment.data.attributes.commented_by.data.user_id"
             class="text-blue-700 font-bold">
-            
             {{ comment.data.attributes.commented_by.data.attributes.name }}
           </a>
           <p class="inline">
@@ -139,6 +137,8 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "Post",
   props: ["post"],

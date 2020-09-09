@@ -3,7 +3,11 @@
     <div class="flex justify-between items-center">
       <div>
         <div class="w-8">
-          <img src="images\person1.jpeg" alt="image profile" class="w-8 h-8 rounded-full object-cover">
+          <img
+            :src="authUser.data.attributes.profile_image.data.attributes.path"
+            alt="image profile"
+            class="w-8 h-8 rounded-full object-cover"
+          />
         </div>
       </div>
       <div class="flex-1 flex mx-4">
@@ -29,6 +33,8 @@
 
 <script>
 import __ from 'lodash';
+import { mapGetters } from "vuex";
+
 export default {
   name: "Newpost",
   data() {
@@ -38,7 +44,10 @@ export default {
 
   },
   computed:{
-    postMessage:{
+     ...mapGetters({
+      authUser:'authUser',
+    }),
+  postMessage:{
       get(){
         return this.$store.getters.postMessage;
       },
