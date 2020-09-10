@@ -50,8 +50,8 @@ const actions={
     axios.post('/wb/posts',{body:state.postMessage})
     .then(res=>{
       commit('pushPost',res.data);
+      commit('setPostsStatus','success');
       commit('updateMessage','');
-      // commit('setPostsStatus','success');
     })
     .catch(error=>{
       // commit('setPostsStatus','error');

@@ -23,9 +23,9 @@
       </div>
     </div>
 
-    <div class="w-full" v-if="post.data.attributes.image">
+    <div class="w-full" v-if="post.data.attributes.image.lenth">
       <img
-        :src="'http://127.0.0.1:8000/images/' + post.data.attributes.image"
+        :src="post.data.attributes.image"
         alt="post image"
         class="w-full"
       />
@@ -147,6 +147,11 @@ export default {
       comments: false,
       commentBody: ""
     };
+  },
+  computed: {
+    ...mapGetters({
+      authUser:'authUser',
+    }),
   }
 };
 </script>

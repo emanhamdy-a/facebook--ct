@@ -5,6 +5,8 @@ namespace Tests\Feature;
 use App\Post;
 use App\User;
 use Tests\TestCase;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -48,6 +50,38 @@ class PostToTimelineTest extends TestCase
         ]
     ]);
   }
+
+  protected function setUp(): void
+  {
+    parent::setUp();
+    Storage::fake('public');
+  }
+
+  /** @test */
+  public function a_user_can_post_a_text_post_with_an_image()
+  {
+    $this->withoutExceptionHandling();
+    $this->actingAs($user=factory(User::class)->create(),'api');
+    $file = UploadedFile::fake()->image('user-post.jpg');
+
+    $response=$this->post('/api/posts',[
+        'body' => 'Testing Body',
+        'image' => $file,
+        'width' => 100,
+        'height' => 100,
+      ]);
+
+    Storage::disk('public')->assertExists('post-images/'.$file->hashName());
+    $response->assertStatus(201)
+    ->assertJson([
+      'data'=>[
+        'attributes'=>[
+          'body' => 'Testing Body',
+          'image' => url('post-images/' .$file->hashName() ),
+          ],
+        ]
+    ]);
+  }
 }
 // in phpunit.xml
 // <server name='DB_CONNECTION' value='myspl'/>
@@ -56,5 +90,5 @@ class PostToTimelineTest extends TestCase
 // in terminal
 
 // vendor\bin\phpunit --filter a_user_can_post_a_text_post
-// phpunit Tests\Feature\PostToTimelineTest.php
+// vendor\bin\phpunit --filter a_user_can_post_a_text_post_with_an_image
 // vendor\bin\phpunit Tests\Feature\\
