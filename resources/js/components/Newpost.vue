@@ -38,11 +38,10 @@
         <div class="dz-preview dz-file-preview mt-4">
           <div class="dz-details">
             <img data-dz-thumbnail class="w-32 h-32">
-            <button data-dz-remove class=" text-xs">Remove</button>
+
+            <button data-dz-remove class="text-xs">REMOVE</button>
           </div>
-          <div class="dz-progress">
-            <span class="dz-upload" data-dz-upload> </span>
-          </div>
+          <div class="dz-progress"><span class="dz-upload" data-dz-upload></span></div>
         </div>
       </div>
     </div>
@@ -51,7 +50,7 @@
 
 <script>
   import _ from 'lodash';
-  import {mapGetters} from 'vuex';
+  import { mapGetters } from 'vuex';
   import Dropzone from 'dropzone';
 
   export default {
@@ -62,9 +61,11 @@
         dropzone: null,
       };
     },
+
     mounted() {
       this.dropzone = new Dropzone(this.$refs.postImage, this.settings);
     },
+
     computed: {
       ...mapGetters({
         authUser: 'authUser',
@@ -98,9 +99,13 @@
           },
           sending: (file, xhr, formData) => {
             formData.append('body', this.$store.getters.postMessage);
+            formData.append('img', file);
+            console.log(file);
+            console.log(xhr);
           },
           success: (event, res) => {
             this.dropzone.removeAllFiles();
+
             this.$store.commit('pushPost', res);
           },
           maxfilesexceeded: file => {
@@ -110,22 +115,23 @@
         };
       },
     },
+
     methods: {
-      open_file_dialog(){
-        this.dropzone = new Dropzone(this.$refs.postImage, this.settings);
-      },
       postHandler() {
         if (this.dropzone.getAcceptedFiles().length) {
           this.dropzone.processQueue();
         } else {
           this.$store.dispatch('postMessage');
         }
+
         this.$store.commit('updateMessage', '');
-      }
+      },
+      open_file_dialog(){
+        this.dropzone = new Dropzone(this.$refs.postImage, this.settings);
+      },
     }
   }
 </script>
-
 <style scoped>
   .fade-enter-active , .fade-leave-active{
     transition: .5s;

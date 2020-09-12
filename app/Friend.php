@@ -2,6 +2,9 @@
 
 namespace App;
 
+use App\User;
+use App\Friend;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 
 class Friend extends Model
@@ -33,5 +36,29 @@ class Friend extends Model
           ->orWhere('friend_id', auth()->user()->id);
       })
       ->get();
+  }
+  public static function friendequests()
+  {
+    return (new static())
+      ->whereNull('confirmed_at')
+      ->where(function ($query) {
+        return $query->where('user_id', auth()->user()->id)
+          ->orWhere('friend_id', auth()->user()->id);
+          // ->with('friend_id')->select('users.*')
+      })
+      ->get();
+  }
+
+  public function friend_info($friendId)
+  {
+    // return User::where('id',$friendId)->first();
+    return DB::table('users')
+    ->join('user_images', 'users.id', '=', 'user_images.user_id')
+    ->select('users.name','user_images.path AS image'
+      ,'user_images.width AS image_width'
+      ,'user_images.height  AS image_height')
+    ->where('user_images.location','profile')
+    ->where('users.id',$friendId)
+    ->first();
   }
 }

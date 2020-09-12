@@ -20,7 +20,7 @@ class CreateFriendsTable extends Migration
             $table->tinyInteger('status')->nullable();
             $table->timestamp('confirmed_at')->nullable();
             $table->timestamps();
-
+            $table->foreign('friend_id')->references('id')->on('users');
             $table->unique(['user_id', 'friend_id']);
         });
     }

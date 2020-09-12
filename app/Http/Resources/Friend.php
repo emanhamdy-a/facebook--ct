@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Resources;
-
+use App\User;
+use App\Friend as FriendModel;
+use App\Http\Resources\User as UserResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class Friend extends JsonResource
@@ -22,6 +24,7 @@ class Friend extends JsonResource
               'confirmed_at' => optional($this->confirmed_at)->diffForHumans(),
               'friend_id' => $this->friend_id,
               'user_id' => $this->user_id,
+              'friend_info'=>$this->friend_info($this->friend_id),
             ]
         ],
         'links' => [

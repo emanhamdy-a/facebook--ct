@@ -20,10 +20,10 @@ class FriendRequestResponseController extends Controller
 
     try {
       $friendRequest = Friend::where('user_id', $data['user_id'])
-        ->where('friend_id', auth()->user()->id)
-        ->firstOrFail();
+      ->where('friend_id', auth()->user()->id)
+      ->firstOrFail();
     } catch (ModelNotFoundException $e) {
-        throw new FriendRequestNotFoundException();
+      throw new FriendRequestNotFoundException();
     }
 
     $friendRequest->update(array_merge($data,['confirmed_at' => now()]));
@@ -34,21 +34,22 @@ class FriendRequestResponseController extends Controller
     return new FriendResource($friendRequest);
   }
 
+  //friend can delete friend request or friendship
   public function destroy()
   {
-      $data = request()->validate([
-          'user_id' => 'required',
-      ]);
+    $data = request()->validate([
+      'user_id' => 'required',
+    ]);
 
-      try {
-          Friend::where('user_id', $data['user_id'])
-              ->where('friend_id', auth()->user()->id)
-              ->firstOrFail()
-              ->delete();
-      } catch (ModelNotFoundException $e) {
-          throw new FriendRequestNotFoundException();
-      }
+    try {
+      Friend::where('user_id', $data['user_id'])
+        ->where('friend_id', auth()->user()->id)
+        ->firstOrFail()
+        ->delete();
+    } catch (ModelNotFoundException $e) {
+      throw new FriendRequestNotFoundException();
+    }
 
-      return response()->json([], 204);
+    return response()->json([], 204);
   }
 }

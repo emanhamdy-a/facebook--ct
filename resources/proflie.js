@@ -76,7 +76,7 @@ const actions={
     .catch(error=>{
     });
   },
-  ignoreFriendRequest({commit,state},userId){
+  FriendCancelFriendShipOrIgnoreFriendRequest({commit,state},userId){
     axios.delete('/wb/friend-request-responce/delete',{'user_id':userId})
     .then(res=>{
       commit('setUserFriendship',res.data);

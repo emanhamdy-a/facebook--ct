@@ -6,6 +6,7 @@ Auth::routes();
 Route::middleware('auth')->group(function(){
   Route::prefix('wb')->group(function () {
     Route::get('auth-user', 'AuthUserController@show');
+    Route::post('/friendShip' , 'FriendRequestController@delete');
     Route::Resources([
       '/posts' => 'PostController',
       '/posts/{post}/like' => 'PostLikeController',

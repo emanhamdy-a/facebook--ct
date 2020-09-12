@@ -68,6 +68,9 @@ export default {
     ...mapGetters({
       authUser:'authUser',
     })
+  },
+  mounted(){
+    console.log(this.authUser.data.attributes.friendequests.data[0].data.attributes.friend_info);
   }
 };
 </script>

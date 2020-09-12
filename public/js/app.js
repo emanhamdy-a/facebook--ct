@@ -2016,7 +2016,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   name: "Nav",
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
     authUser: 'authUser'
-  }))
+  })),
+  mounted: function mounted() {
+    console.log(this.authUser.data.attributes.friendequests.data[0].data.attributes.friend_info);
+  }
 });
 
 /***/ }),
@@ -2041,7 +2044,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
 //
 //
 //
@@ -2137,6 +2139,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         },
         sending: function sending(file, xhr, formData) {
           formData.append('body', _this.$store.getters.postMessage);
+          formData.append('img', file);
+          console.log(file);
+          console.log(xhr);
         },
         success: function success(event, res) {
           _this.dropzone.removeAllFiles();
@@ -2152,9 +2157,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }),
   methods: {
-    open_file_dialog: function open_file_dialog() {
-      this.dropzone = new dropzone__WEBPACK_IMPORTED_MODULE_2___default.a(this.$refs.postImage, this.settings);
-    },
     postHandler: function postHandler() {
       if (this.dropzone.getAcceptedFiles().length) {
         this.dropzone.processQueue();
@@ -2163,6 +2165,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       this.$store.commit('updateMessage', '');
+    },
+    open_file_dialog: function open_file_dialog() {
+      this.dropzone = new dropzone__WEBPACK_IMPORTED_MODULE_2___default.a(this.$refs.postImage, this.settings);
     }
   }
 });
@@ -2185,6 +2190,12 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2349,6 +2360,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2356,11 +2374,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "",
   data: function data() {
     return {};
   },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
+    authUser: 'authUser'
+  })),
   methods: {}
 });
 
@@ -2532,6 +2565,16 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -24796,8 +24839,8 @@ var staticRenderFns = [
             _vm._v(" "),
             _c(
               "button",
-              { staticClass: " text-xs", attrs: { "data-dz-remove": "" } },
-              [_vm._v("Remove")]
+              { staticClass: "text-xs", attrs: { "data-dz-remove": "" } },
+              [_vm._v("REMOVE")]
             )
           ]),
           _vm._v(" "),
@@ -24851,25 +24894,43 @@ var render = function() {
             })
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "ml-6" }, [
-            _c("div", { staticClass: "text-sm font-bold" }, [
-              _vm._v(
-                "\n          " +
-                  _vm._s(
-                    _vm.post.data.attributes.posted_by.data.attributes.name
-                  ) +
-                  "\n        "
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "text-sm text-gray-600" }, [
-              _vm._v(
-                "\n          " +
-                  _vm._s(_vm.post.data.attributes.posted_at) +
-                  "\n        "
-              )
-            ])
-          ])
+          _c(
+            "div",
+            { staticClass: "ml-6" },
+            [
+              _c(
+                "router-link",
+                {
+                  attrs: {
+                    to:
+                      "/users/" +
+                      _vm.post.data.attributes.posted_by.data.user_id
+                  }
+                },
+                [
+                  _c("div", { staticClass: "text-sm font-bold" }, [
+                    _vm._v(
+                      "\n            " +
+                        _vm._s(
+                          _vm.post.data.attributes.posted_by.data.attributes
+                            .name
+                        ) +
+                        "\n          "
+                    )
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "text-sm text-gray-600" }, [
+                _vm._v(
+                  "\n          " +
+                    _vm._s(_vm.post.data.attributes.posted_at) +
+                    "\n        "
+                )
+              ])
+            ],
+            1
+          )
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "mt-4" }, [
@@ -24877,7 +24938,7 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _vm.post.data.attributes.image.lenth
+      _vm.post.data.attributes.image.length
         ? _c("div", { staticClass: "w-full" }, [
             _c("img", {
               staticClass: "w-full",
@@ -25088,24 +25149,25 @@ var render = function() {
                 { staticClass: "bg-gray-200 rounded-lg p-2 text-sm mx-3" },
                 [
                   _c(
-                    "a",
+                    "router-link",
                     {
-                      staticClass: "text-blue-700 font-bold",
                       attrs: {
-                        href:
+                        to:
                           "/users/" +
                           comment.data.attributes.commented_by.data.user_id
                       }
                     },
                     [
-                      _vm._v(
-                        "\n          " +
-                          _vm._s(
-                            comment.data.attributes.commented_by.data.attributes
-                              .name
-                          ) +
-                          "\n        "
-                      )
+                      _c("span", { staticClass: "text-blue-700 font-bold" }, [
+                        _vm._v(
+                          "\n            " +
+                            _vm._s(
+                              comment.data.attributes.commented_by.data
+                                .attributes.name
+                            ) +
+                            "\n          "
+                        )
+                      ])
                     ]
                   ),
                   _vm._v(" "),
@@ -25116,7 +25178,8 @@ var render = function() {
                         "\n        "
                     )
                   ])
-                ]
+                ],
+                1
               ),
               _vm._v(" "),
               _c("div", { staticClass: "text-xs pl-5" }, [
@@ -25156,15 +25219,49 @@ var render = function() {
     "div",
     { staticClass: "w-1/4 bg-white p-4 border-r border-gray-400" },
     [
-      _c("h2", { staticClass: "font-bold text-2xl tracking-tight" }, [
-        _vm._v("Home")
+      _c("router-link", { attrs: { to: "/" } }, [
+        _c("h2", { staticClass: "font-bold text-2xl tracking-tight" }, [
+          _vm._v("Home")
+        ])
       ]),
       _vm._v(" "),
-      _vm._l(8, function(i) {
-        return _c("p", { key: i, staticClass: "text-2xl" }, [_vm._v("link")])
-      })
+      _c(
+        "router-link",
+        { attrs: { to: "/users/" + _vm.authUser.data.user_id } },
+        [
+          _c(
+            "h2",
+            { staticClass: "font-bold text-gray-700 text-xl tracking-tight" },
+            [_vm._v("Profile")]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "router-link",
+        { attrs: { to: "/friends/" + _vm.authUser.data.user_id } },
+        [
+          _c(
+            "h2",
+            { staticClass: "font-bold text-gray-700 text-xl tracking-tight" },
+            [_vm._v("Friends")]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "router-link",
+        { attrs: { to: "/friend-requests/" + _vm.authUser.data.user_id } },
+        [
+          _c(
+            "h2",
+            { staticClass: "font-bold text-gray-700 text-xl tracking-tight" },
+            [_vm._v("Friend Requests")]
+          )
+        ]
+      )
     ],
-    2
+    1
   )
 }
 var staticRenderFns = []
@@ -25369,11 +25466,12 @@ var render = function() {
               "absolute bottom-0 right-0 mb-4 flex items-center mr-10 z-20"
           },
           [
-            _vm.friendButtonText && _vm.friendButtonText !== "Accept"
+            _vm.friendButtonText && _vm.friendButtonText === "Add Friend"
               ? _c(
                   "button",
                   {
-                    staticClass: "py-1 px-3 rounded bg-gray-400",
+                    staticClass:
+                      "mr-2 py-1 px-3 rounded bg-blue-500 text-white",
                     on: {
                       click: function($event) {
                         return _vm.$store.dispatch(
@@ -25385,31 +25483,12 @@ var render = function() {
                   },
                   [
                     _vm._v(
-                      "\n        " + _vm._s(_vm.friendButtonText) + "\n      "
+                      "\n         " + _vm._s(_vm.friendButtonText) + "\n      "
                     )
                   ]
                 )
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.friendButtonText && _vm.friendButtonText === "Accept"
-              ? _c(
-                  "button",
-                  {
-                    staticClass: "mr-2 py-1 px-3 rounded bg-blue-500",
-                    on: {
-                      click: function($event) {
-                        return _vm.$store.dispatch(
-                          "acceptFriendRequest",
-                          _vm.$route.params.userId
-                        )
-                      }
-                    }
-                  },
-                  [_vm._v("\n        Accept\n      ")]
-                )
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.friendButtonText && _vm.friendButtonText === "Accept"
+              : _vm.friendButtonText &&
+                _vm.friendButtonText === "Cancel Friend Request"
               ? _c(
                   "button",
                   {
@@ -25417,13 +25496,38 @@ var render = function() {
                     on: {
                       click: function($event) {
                         return _vm.$store.dispatch(
-                          "ignoreFriendRequest",
+                          "UserCancelFriendRequestOrFriendShip",
                           _vm.$route.params.userId
                         )
                       }
                     }
                   },
-                  [_vm._v("\n        Ignore\n      ")]
+                  [
+                    _vm._v(
+                      "\n        " + _vm._s(_vm.friendButtonText) + "\n      "
+                    )
+                  ]
+                )
+              : _vm.friendButtonText &&
+                _vm.friendButtonText === "Cancel Friend Ship"
+              ? _c(
+                  "button",
+                  {
+                    staticClass: "mr-2 py-1 px-3 rounded bg-gray-400",
+                    on: {
+                      click: function($event) {
+                        return _vm.$store.dispatch(
+                          "UserCancelFriendRequestOrFriendShip",
+                          _vm.$route.params.userId
+                        )
+                      }
+                    }
+                  },
+                  [
+                    _vm._v(
+                      "\n        " + _vm._s(_vm.friendButtonText) + "\n      "
+                    )
+                  ]
                 )
               : _vm._e()
           ]
@@ -42683,16 +42787,15 @@ var getters = {
       if (rootState.User.user.data.user_id === state.user.data.user_id) {
         return '';
       } else if (getters.friendShip === null) {
+        // alert('Add Friend');
         return 'Add Friend';
       } else if (getters.friendShip.data.attributes.confirmed_at === null && getters.friendShip.data.attributes.friend_id !== rootState.User.user.data.user_id) {
-        return 'Pending Friend Request';
+        return 'Cancel Friend Request';
       } else if (getters.friendShip.data.attributes.confirmed_at !== null) {
-        return '';
-      }
+        return 'Cancel Friend Ship';
+      } // return 'Accept';
 
-      return 'Accept';
-    } // return state.friendButtonText;
-
+    }
   }
 };
 var actions = {
@@ -42733,24 +42836,27 @@ var actions = {
       commit('setUserFriendShip', res.data);
     })["catch"](function (error) {});
   },
-  ignoreFriendRequest: function ignoreFriendRequest(_ref4, userId) {
+  FriendCancelFriendShipOrIgnoreFriendRequest: function FriendCancelFriendShipOrIgnoreFriendRequest(_ref4, userId) {// console.log(userId);
+    // axios.post('/wb/friend-request-responce/delete',{'user_id':userId})
+    // .then(res=>{
+    //   commit('setUserFriendShip',res.data);
+    // })
+    // .catch(error=>{
+    // });
+
     var commit = _ref4.commit,
         state = _ref4.state;
-    axios["delete"]('/wb/friend-request-responce/delete', {
+  },
+  UserCancelFriendRequestOrFriendShip: function UserCancelFriendRequestOrFriendShip(_ref5, userId) {
+    var commit = _ref5.commit,
+        state = _ref5.state;
+    // console.log(userId);
+    axios.post('/wb/friendShip', {
       'user_id': userId
     }).then(function (res) {
-      commit('setUserFriendShip', res.data);
+      commit('setUserFriendShip', null);
     })["catch"](function (error) {});
-  } // setFriendButton({commit,getters}){
-  //   if(getters.friendShip === null){
-  //     commit('setfriendButtonText','Add Friend');
-  //   }else if(getters.friendShip.data.attributes.confirmed_at === null){
-  //     commit('setfriendButtonText','Pending Friend Request');
-  //   }else if(getters.friendShip.data.attributes.confirmed_at !== null){
-  //     commit('setfriendButtonText','');
-  //   }
-  // }
-
+  }
 };
 var mutations = {
   setUserStatus: function setUserStatus(state, status) {
@@ -42761,10 +42867,7 @@ var mutations = {
   },
   setUser: function setUser(state, user) {
     state.user = user;
-  } // setfriendButtonText(state,text){
-  //   state.friendButtonText=text;
-  // },
-
+  }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: state,

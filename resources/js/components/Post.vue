@@ -10,9 +10,12 @@
           />
         </div>
         <div class="ml-6">
-          <div class="text-sm font-bold">
-            {{ post.data.attributes.posted_by.data.attributes.name }}
-          </div>
+          <router-link
+            :to="'/users/' + post.data.attributes.posted_by.data.user_id">
+            <div class="text-sm font-bold">
+              {{ post.data.attributes.posted_by.data.attributes.name }}
+            </div>
+          </router-link>
           <div class="text-sm text-gray-600">
             {{ post.data.attributes.posted_at }}
           </div>
@@ -23,7 +26,7 @@
       </div>
     </div>
 
-    <div class="w-full" v-if="post.data.attributes.image.lenth">
+    <div class="w-full" v-if="post.data.attributes.image.length">
       <img
         :src="post.data.attributes.image"
         alt="post image"
@@ -87,6 +90,7 @@
         <p class="ml-2">Comment</p>
       </button>
     </div>
+
     <div class="border-t border-gray-400 p-4 pt-2" v-if="comments">
       <div class="flex">
         <input
@@ -119,11 +123,13 @@
       </div>
       <div class="ml-4 flex-1">
         <div class="bg-gray-200 rounded-lg p-2 text-sm mx-3">
-          <a
-            :href="'/users/' + comment.data.attributes.commented_by.data.user_id"
-            class="text-blue-700 font-bold">
-            {{ comment.data.attributes.commented_by.data.attributes.name }}
-          </a>
+          <router-link
+           :to="'/users/' + comment.data.attributes.commented_by.data.user_id">
+            <span class="text-blue-700 font-bold">
+              {{ comment.data.attributes.commented_by.data.attributes.name }}
+            </span>
+          </router-link>
+
           <p class="inline">
             {{ comment.data.attributes.body }}
           </p>

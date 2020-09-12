@@ -22,17 +22,16 @@ const getters={
       if (rootState.User.user.data.user_id === state.user.data.user_id) {
         return '';
       } else if (getters.friendShip === null) {
+          // alert('Add Friend');
           return 'Add Friend';
       } else if (getters.friendShip.data.attributes.confirmed_at === null
           && getters.friendShip.data.attributes.friend_id !== rootState.User.user.data.user_id) {
-          return 'Pending Friend Request';
+          return 'Cancel Friend Request';
       } else if (getters.friendShip.data.attributes.confirmed_at !== null) {
-          return '';
+          return 'Cancel Friend Ship';
       }
-      return 'Accept';
+      // return 'Accept';
     }
-
-    // return state.friendButtonText;
   }
 };
 
@@ -69,23 +68,24 @@ const actions={
     .catch(error=>{
     });
   },
-  ignoreFriendRequest({commit,state},userId){
-    axios.delete('/wb/friend-request-responce/delete',{'user_id':userId})
+  FriendCancelFriendShipOrIgnoreFriendRequest({commit,state},userId){
+    // console.log(userId);
+    // axios.post('/wb/friend-request-responce/delete',{'user_id':userId})
+    // .then(res=>{
+    //   commit('setUserFriendShip',res.data);
+    // })
+    // .catch(error=>{
+    // });
+  },
+  UserCancelFriendRequestOrFriendShip({commit,state},userId){
+    // console.log(userId);
+    axios.post('/wb/friendShip',{'user_id':userId})
     .then(res=>{
-      commit('setUserFriendShip',res.data);
+      commit('setUserFriendShip',null);
     })
     .catch(error=>{
     });
   },
-  // setFriendButton({commit,getters}){
-  //   if(getters.friendShip === null){
-  //     commit('setfriendButtonText','Add Friend');
-  //   }else if(getters.friendShip.data.attributes.confirmed_at === null){
-  //     commit('setfriendButtonText','Pending Friend Request');
-  //   }else if(getters.friendShip.data.attributes.confirmed_at !== null){
-  //     commit('setfriendButtonText','');
-  //   }
-  // }
 };
 
 const mutations={
@@ -98,10 +98,6 @@ const mutations={
   setUser(state,user){
     state.user=user;
   },
-
-  // setfriendButtonText(state,text){
-  //   state.friendButtonText=text;
-  // },
 };
 
 export default {

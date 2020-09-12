@@ -42,21 +42,31 @@
       </div>
       <div
         class="absolute bottom-0 right-0 mb-4 flex items-center mr-10 z-20">
-        <button class="py-1 px-3 rounded bg-gray-400"
-          v-if="friendButtonText && friendButtonText !=='Accept'"
+        <button class="mr-2 py-1 px-3 rounded bg-blue-500 text-white"
+          v-if="friendButtonText && friendButtonText ==='Add Friend'"
           @click="$store.dispatch('sendFriendRequest',$route.params.userId)">
+           {{ friendButtonText }}
+        </button>
+        <button class="mr-2 py-1 px-3 rounded bg-gray-400"
+          v-else-if="friendButtonText && friendButtonText ==='Cancel Friend Request'"
+          @click="$store.dispatch('UserCancelFriendRequestOrFriendShip',$route.params.userId)">
           {{ friendButtonText }}
         </button>
-        <button class="mr-2 py-1 px-3 rounded bg-blue-500"
+        <button class="mr-2 py-1 px-3 rounded bg-gray-400"
+          v-else-if="friendButtonText && friendButtonText ==='Cancel Friend Ship'"
+          @click="$store.dispatch('UserCancelFriendRequestOrFriendShip',$route.params.userId)">
+          {{ friendButtonText }}
+        </button>
+        <!-- <button class="mr-2 py-1 px-3 rounded bg-blue-500"
           v-if="friendButtonText && friendButtonText ==='Accept'"
           @click="$store.dispatch('acceptFriendRequest',$route.params.userId)">
           Accept
-        </button>
-        <button class="mr-2 py-1 px-3 rounded bg-gray-400"
+        </button> -->
+        <!-- <button class="mr-2 py-1 px-3 rounded bg-gray-400"
           v-if="friendButtonText && friendButtonText ==='Accept'"
-          @click="$store.dispatch('ignoreFriendRequest',$route.params.userId)">
+          @click="$store.dispatch('FriendCancelFriendShipOrIgnoreFriendRequest',$route.params.userId)">
           Ignore
-        </button>
+        </button> -->
       </div>
     </div>
     <p v-if="status.posts === 'loading'">Posts loading ...</p>
