@@ -16,6 +16,7 @@ class Friend extends JsonResource
      */
     public function toArray($request)
     {
+      $friendId=auth()->user()->id == $this->user_id ? $this->friend_id : $this->user_id;
       return [
         'data' => [
             'type' => 'friend-request',
@@ -24,7 +25,7 @@ class Friend extends JsonResource
               'confirmed_at' => optional($this->confirmed_at)->diffForHumans(),
               'friend_id' => $this->friend_id,
               'user_id' => $this->user_id,
-              'friend_info'=>$this->friend_info($this->friend_id),
+              'friend_info'=>$this->friend_info($friendId),
             ]
         ],
         'links' => [

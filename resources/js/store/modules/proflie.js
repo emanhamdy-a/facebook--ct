@@ -1,7 +1,8 @@
+// rootGetters
+
 const state={
   user:null,
   userStatus:null,
-  // friendButtonText:null,
 };
 
 const getters={
@@ -19,13 +20,14 @@ const getters={
   },
   friendButtonText:(state,getters,rootState)=>{
     if(rootState.User.user){
+
       if (rootState.User.user.data.user_id === state.user.data.user_id) {
         return '';
       } else if (getters.friendShip === null) {
-          // alert('Add Friend');
-          return 'Add Friend';
+        // alert('Add Friend');
+        return 'Add Friend';
       } else if (getters.friendShip.data.attributes.confirmed_at === null
-          && getters.friendShip.data.attributes.friend_id !== rootState.User.user.data.user_id) {
+        && getters.friendShip.data.attributes.friend_id !== rootState.User.user.data.user_id) {
           return 'Cancel Friend Request';
       } else if (getters.friendShip.data.attributes.confirmed_at !== null) {
           return 'Cancel Friend Ship';
@@ -36,13 +38,12 @@ const getters={
 };
 
 const actions={
-  fetchUser({commit,dispatch},userId){
+  fetchUser({commit},userId){
     commit('setUserStatus','loading');
     axios.get('/wb/users/' + userId)
     .then(res=>{
       commit('setUser',res.data);
       commit('setUserStatus','success');
-      // dispatch('setFriendButton');
     })
     .catch(err=>{
       commit('setUserStatus','error');
@@ -54,37 +55,43 @@ const actions={
     }
     axios.post('/wb/friend-request',{'friend_id':friendId})
     .then(res=>{
-      commit('setUserFriendShip',res.data);
+      // commit('setUserFriendShip',res.data);
+      // dispatch('fetchUser',5);
+      // dispatch('fetchAuthUser', { root: true });
     })
-    .catch(error=>{
-      // commit('setfriendButtonText','Add Friend');
-    });
   },
-  acceptFriendRequest({commit,state},userId){
-    axios.post('/wb/friend-request-responce',{data:{'user_id':userId}})
+  acceptFriendRequest({commit,state,dispatch,rootState},friendId){
+    // axios.post('/wb/friend-request-responce',{'friend_id':friendId})
+    axios.get('/wb/friend-request-responce/'+ friendId)
     .then(res=>{
       commit('setUserFriendShip',res.data);
+      dispatch('fetchUser',rootState.User.user.data.user_id);
+      dispatch('fetchAuthUser', { root: true });
     })
-    .catch(error=>{
-    });
   },
-  FriendCancelFriendShipOrIgnoreFriendRequest({commit,state},userId){
-    // console.log(userId);
-    // axios.post('/wb/friend-request-responce/delete',{'user_id':userId})
-    // .then(res=>{
-    //   commit('setUserFriendShip',res.data);
-    // })
-    // .catch(error=>{
-    // });
-  },
-  UserCancelFriendRequestOrFriendShip({commit,state},userId){
-    // console.log(userId);
-    axios.post('/wb/friendShip',{'user_id':userId})
+  CancelFriendShips({commit,state},data){
+    // console.log(data.friend_id);
+    axios.delete('/wb/friend-request-response/'+ data.friend_id)
     .then(res=>{
+      commit('rempoveFriendShip', data.key, { root: true })
       commit('setUserFriendShip',null);
     })
-    .catch(error=>{
-    });
+  },
+  // /wb/friend-request-responce/accept
+  IgnoreFriendRequest({commit,state},data){
+    axios.delete('/wb/friend-request-response/'+ data.friend_id)
+    .then(res=>{
+      commit('rempoveFriendRequest', data.key, { root: true }) //
+      commit('setUserFriendShip',null);
+    })
+  },
+  CancelFriendShipOrFriendRequest({ dispatch,commit,state},userId){
+    axios.post('/wb/friendShip',{'user_id':userId})
+    .then(res=>{
+      // commit('setUserFriendShip',null);
+      // dispatch('fetchUser',5);
+      // dispatch('fetchAuthUser', { root: true });
+    })
   },
 };
 
@@ -93,7 +100,7 @@ const mutations={
     state.userStatus=status;
   },
   setUserFriendShip(state,friends){
-    state.user.data.attributes.friendship=friends;
+    // state.user.data.attributes.friendship=friends;
   },
   setUser(state,user){
     state.user=user;

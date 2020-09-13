@@ -8,7 +8,7 @@ use App\Http\Resources\Friend as FriendResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\UserImage as UserImageResource;
 
-class User extends JsonResource
+class Auth extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -26,6 +26,8 @@ class User extends JsonResource
           'attributes'=>[
             'name' => $this->name,
             'friendship'=>new FriendResource(Friend::friendship($this->id)),
+            'friendships'=>new FriendCollection(Friend::friendships()),
+            'friendequests'=>new FriendCollection(Friend::friendequests()),
             'cover_image'=>new UserImageResource($this->coverImage),
             'profile_image'=>new UserImageResource($this->profileImage),
           ]

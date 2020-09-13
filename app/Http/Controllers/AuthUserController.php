@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\User as UserResource;
+use App\Http\Resources\Auth as AuthResource;
 use Illuminate\Http\Request;
 
 class AuthUserController extends Controller
 {
     public function show()
     {
-      return new UserResource(auth()->user());
+      return new AuthResource(auth()->user());
     }
 }

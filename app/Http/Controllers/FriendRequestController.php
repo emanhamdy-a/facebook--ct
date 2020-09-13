@@ -41,6 +41,8 @@ class FriendRequestController extends Controller
     try {
       Friend::where('user_id',auth()->user()->id )
         ->where('friend_id', $data['user_id'])
+        ->orwhere('user_id',$data['user_id'])
+        ->where('friend_id',auth()->user()->id)
         ->firstOrFail()
         ->delete();
     } catch (ModelNotFoundException $e) {

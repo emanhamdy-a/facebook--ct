@@ -7,6 +7,8 @@ Route::middleware('auth')->group(function(){
   Route::prefix('wb')->group(function () {
     Route::get('auth-user', 'AuthUserController@show');
     Route::post('/friendShip' , 'FriendRequestController@delete');
+    Route::get('/friend-request-responce/{friend_id}'
+     , 'FriendRequestResponseController@AcceptFriendRequest');
     Route::Resources([
       '/posts' => 'PostController',
       '/posts/{post}/like' => 'PostLikeController',

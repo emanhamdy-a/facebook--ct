@@ -51,14 +51,15 @@ class Friend extends Model
 
   public function friend_info($friendId)
   {
-    // return User::where('id',$friendId)->first();
-    return DB::table('users')
-    ->join('user_images', 'users.id', '=', 'user_images.user_id')
-    ->select('users.name','user_images.path AS image'
+    $nm_img = User::join('user_images', 'users.id', '=', 'user_images.user_id')
+    ->select('users.id AS friend_id','users.name','user_images.path AS image'
       ,'user_images.width AS image_width'
       ,'user_images.height  AS image_height')
     ->where('user_images.location','profile')
     ->where('users.id',$friendId)
+    ->first();
+    return $nm_img ? $nm_img : User::where('id',$friendId)
+    ->select('id AS friend_id','name')
     ->first();
   }
 }

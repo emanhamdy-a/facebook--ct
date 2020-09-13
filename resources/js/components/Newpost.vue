@@ -99,9 +99,6 @@
           },
           sending: (file, xhr, formData) => {
             formData.append('body', this.$store.getters.postMessage);
-            formData.append('img', file);
-            console.log(file);
-            console.log(xhr);
           },
           success: (event, res) => {
             this.dropzone.removeAllFiles();

@@ -27,6 +27,20 @@ const mutations={
   setAuthUser(state,user){
     state.user=user;
   },
+  rempoveFriendShip(state,friendShipKey){
+    if(friendShipKey == 0){
+      state.user.data.attributes.friendships.data.shift();
+    }else{
+      state.user.data.attributes.friendships.data.splice(friendShipKey);
+    }
+  },
+  rempoveFriendRequest(state,friendShipKey){
+    if(friendShipKey == 0){
+      state.user.data.attributes.friendequests.data.shift();
+    }else{
+      state.user.data.attributes.friendequests.data.splice(friendShipKey);
+    }
+  },
   change_profile_image(state,cover_img){
     state.user.data.attributes.cover_image.data=cover_img;
   },
