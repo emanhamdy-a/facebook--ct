@@ -36,6 +36,7 @@ class FriendRequestResponseController extends Controller
 
   public function AcceptFriendRequest($friend_id)
   {
+    // return $friend_id;
     try {
       $friendRequest = Friend::where('user_id', $friend_id)
       ->where('friend_id', auth()->user()->id)

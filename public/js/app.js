@@ -2553,8 +2553,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _components_Post__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../components/Post */ "./resources/js/components/Post.vue");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -2630,20 +2629,86 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+// import Post from "../../components/Post";
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Friends",
-  components: {
-    Post: _components_Post__WEBPACK_IMPORTED_MODULE_0__["default"]
+  components: {// Post,
   },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
+    // user: "user",
+    // posts: "posts",
+    // status:'status',
+    authUser: 'authUser'
+  })),
   mounted: function mounted() {
-    this.$store.dispatch('fetchUser', this.$route.params.friendId);
-    this.$store.dispatch("fetchUserPosts", this.$route.params.friendId);
+    this.$store.dispatch('fetchUser', this.$route.params.friendId); // this.$store.dispatch("fetchUserPosts", this.$route.params.friendId);
   },
   methods: {
-    AcceptFriendRequest: function AcceptFriendRequest() {
+    acceptFriendRequest: function acceptFriendRequest() {
       var _this = this;
 
       this.$store.dispatch('sendFriendRequest', this.$route.params.userId).then(function () {
@@ -2652,13 +2717,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _this.$store.dispatch('fetchUser', _this.$route.params.userId);
       });
     }
-  },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])({
-    user: "user",
-    posts: "posts",
-    status: 'status',
-    authUser: 'authUser'
-  }))
+  }
 });
 
 /***/ }),
@@ -2744,6 +2803,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Friends",
@@ -2752,8 +2819,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.$store.dispatch('fetchUser', this.$route.params.friendId);
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
-    user: "user",
-    status: 'status',
     authUser: 'authUser'
   }))
 });
@@ -25603,156 +25668,351 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "flex flex-col items-center" },
-    [
-      _c("div", { staticClass: "relative w-full mb-8" }, [
-        _c("div", { staticClass: "w-100 h-64 overflow-hidden z-10" }, [
-          _c("img", {
-            staticClass: "object-cover w-full",
-            attrs: {
-              "image-width": "1500",
-              src: _vm.user.data.attributes.cover_image.data.attributes.path,
-              "image-height": "500",
-              location: "cover"
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c(
+  return _c("div", [
+    _vm.$route.params.friendId == _vm.authUser.data.user_id
+      ? _c(
           "div",
-          {
-            staticClass: "absolute bottom-0 left-0 -mb-8 flex items-center z-20"
-          },
+          { staticClass: "flex flex-col items-center pb-16" },
           [
-            _c("img", {
-              staticClass:
-                "'w-32 h-32  ml-8 rounded-full object-cover border-gray-200 border-4 shadow-lg'",
-              attrs: {
-                "image-width": "750",
-                "image-height": "750",
-                alt: "'profile image'",
-                src: _vm.user.data.attributes.profile_image.data.attributes.path
-              }
+            _c("div", { staticClass: "relative w-full mb-8" }, [
+              _c("div", { staticClass: "w-100 h-64 overflow-hidden z-10" }, [
+                _c("img", {
+                  staticClass: "object-cover w-full",
+                  attrs: {
+                    "image-width": "1500",
+                    src:
+                      _vm.authUser.data.attributes.cover_image.data.attributes
+                        .path,
+                    "image-height": "500",
+                    location: "cover"
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "absolute bottom-0 left-0 -mb-8 flex items-center z-20"
+                },
+                [
+                  _c("img", {
+                    staticClass:
+                      "'w-32 h-32  ml-8 rounded-full object-cover border-gray-200 border-4 shadow-lg'",
+                    attrs: {
+                      "image-width": "750",
+                      "image-height": "750",
+                      alt: "'profile image'",
+                      src:
+                        _vm.authUser.data.attributes.profile_image.data
+                          .attributes.path
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "text-2xl text-gray-600 ml-8" }, [
+                    _vm._v(_vm._s(_vm.authUser.data.attributes.name))
+                  ])
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _vm._l(_vm.authUser.data.attributes.friendequests.data, function(
+              friend,
+              friendKey
+            ) {
+              return friend.data.attributes.user_id != _vm.authUser.data.user_id
+                ? _c(
+                    "div",
+                    {
+                      key: friendKey,
+                      staticClass:
+                        "bg-white rounded shadow w-2/3 mt-6 pl-4 overflow-hidden"
+                    },
+                    [
+                      _c("div", { staticClass: "p-4" }, [
+                        _c(
+                          "div",
+                          { staticClass: "flex items-center relative" },
+                          [
+                            _c("div", { staticClass: "w-8" }, [
+                              friend.data.attributes.friend_info.image
+                                ? _c("img", {
+                                    staticClass:
+                                      "w-8 h-8 object-cover rounded-full",
+                                    attrs: {
+                                      src:
+                                        "../storage/" +
+                                        friend.data.attributes.friend_info
+                                          .image,
+                                      alt: "img"
+                                    }
+                                  })
+                                : _c("img", {
+                                    staticClass:
+                                      "w-8 h-8 object-cover rounded-full",
+                                    attrs: {
+                                      src: "../storage/user-images/person1.png"
+                                    }
+                                  })
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "ml-6" },
+                              [
+                                _c(
+                                  "a",
+                                  { staticClass: " text-sm text-gray-700" },
+                                  [_vm._v("From")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "router-link",
+                                  {
+                                    attrs: {
+                                      to:
+                                        "/users/" +
+                                        friend.data.attributes.friend_info
+                                          .friend_id
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "div",
+                                      { staticClass: "text-sm font-bold" },
+                                      [
+                                        _vm._v(
+                                          "\n                  " +
+                                            _vm._s(
+                                              friend.data.attributes.friend_info
+                                                .name
+                                            ) +
+                                            "\n                "
+                                        )
+                                      ]
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticClass: "text-sm text-gray-600" },
+                                  [
+                                    _vm._v(
+                                      "\n                  " +
+                                        _vm._s(
+                                          friend.data.attributes.confirmed_at
+                                        ) +
+                                        "\n              "
+                                    )
+                                  ]
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "absolute right-0 " }, [
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "mr-2 py-1 px-3 text-blue-100 rounded bg-blue-500",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.$store.dispatch(
+                                        "acceptFriendRequest",
+                                        friend.data.attributes.friend_info
+                                          .friend_id
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                Accept\n              "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "mr-2 py-1 px-3 rounded bg-gray-400",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.$store.dispatch(
+                                        "IgnoreFriendRequest",
+                                        {
+                                          friend_id:
+                                            friend.data.attributes.friend_info
+                                              .friend_id,
+                                          key: friendKey
+                                        }
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                Cancel\n              "
+                                  )
+                                ]
+                              )
+                            ])
+                          ]
+                        )
+                      ])
+                    ]
+                  )
+                : _vm._e()
             }),
             _vm._v(" "),
-            _c("p", { staticClass: "text-2xl text-gray-600 ml-8" }, [
-              _vm._v(_vm._s(_vm.user.data.attributes.name))
-            ])
-          ]
+            _vm._l(_vm.authUser.data.attributes.friendequests.data, function(
+              friend,
+              friendKey
+            ) {
+              return friend.data.attributes.user_id == _vm.authUser.data.user_id
+                ? _c(
+                    "div",
+                    {
+                      key: friendKey,
+                      staticClass:
+                        "bg-white rounded shadow w-2/3 mt-6 pl-4 overflow-hidden"
+                    },
+                    [
+                      _c("div", { staticClass: "p-4" }, [
+                        _c(
+                          "div",
+                          { staticClass: "flex items-center relative" },
+                          [
+                            _c("div", { staticClass: "w-8" }, [
+                              friend.data.attributes.friend_info.image
+                                ? _c("img", {
+                                    staticClass:
+                                      "w-8 h-8 object-cover rounded-full",
+                                    attrs: {
+                                      src:
+                                        "../storage/" +
+                                        friend.data.attributes.friend_info
+                                          .image,
+                                      alt: "img"
+                                    }
+                                  })
+                                : _c("img", {
+                                    staticClass:
+                                      "w-8 h-8 object-cover rounded-full",
+                                    attrs: {
+                                      src: "../storage/user-images/person1.png"
+                                    }
+                                  })
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "ml-6" },
+                              [
+                                _c(
+                                  "a",
+                                  { staticClass: " text-sm text-gray-700" },
+                                  [_vm._v("To")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "router-link",
+                                  {
+                                    attrs: {
+                                      to:
+                                        "/users/" +
+                                        friend.data.attributes.friend_info
+                                          .friend_id
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "div",
+                                      { staticClass: "text-sm font-bold" },
+                                      [
+                                        _vm._v(
+                                          "\n                  " +
+                                            _vm._s(
+                                              friend.data.attributes.friend_info
+                                                .name
+                                            ) +
+                                            "\n                "
+                                        )
+                                      ]
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticClass: "text-sm text-gray-600" },
+                                  [
+                                    _vm._v(
+                                      "\n                  " +
+                                        _vm._s(
+                                          friend.data.attributes.confirmed_at
+                                        ) +
+                                        "\n              "
+                                    )
+                                  ]
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "absolute right-0 " }, [
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "mr-2 py-1 px-3 rounded bg-gray-400",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.$store.dispatch(
+                                        "IgnoreFriendRequest",
+                                        {
+                                          friend_id:
+                                            friend.data.attributes.friend_info
+                                              .friend_id,
+                                          key: friendKey
+                                        }
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                Cancel\n              "
+                                  )
+                                ]
+                              )
+                            ])
+                          ]
+                        )
+                      ])
+                    ]
+                  )
+                : _vm._e()
+            })
+          ],
+          2
         )
-      ]),
-      _vm._v(" "),
-      _vm._l(_vm.authUser.data.attributes.friendequests.data, function(
-        friend,
-        friendKey
-      ) {
-        return _c(
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.$route.params.friendId != _vm.authUser.data.user_id
+      ? _c(
           "div",
           {
-            key: friendKey,
             staticClass:
-              "bg-white rounded shadow w-2/3 mt-6 pl-4 overflow-hidden"
+              "bg-red-100 rounded shadow w-2/3 m-40 p-10 text-red-500 text-2xl overflow-hidden"
           },
-          [
-            _c("div", { staticClass: "p-4" }, [
-              _c("div", { staticClass: "flex items-center relative" }, [
-                _c("div", { staticClass: "w-8" }, [
-                  friend.data.attributes.friend_info.image
-                    ? _c("img", {
-                        staticClass: "w-8 h-8 object-cover rounded-full",
-                        attrs: {
-                          src:
-                            "../storage/" +
-                            friend.data.attributes.friend_info.image,
-                          alt: "img"
-                        }
-                      })
-                    : _c("img", {
-                        staticClass: "w-8 h-8 object-cover rounded-full",
-                        attrs: { src: "../storage/user-images/person1.png" }
-                      })
-                ]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "ml-6" },
-                  [
-                    _c(
-                      "router-link",
-                      {
-                        attrs: {
-                          to:
-                            "/users/" +
-                            friend.data.attributes.friend_info.friend_id
-                        }
-                      },
-                      [
-                        _c("div", { staticClass: "text-sm font-bold" }, [
-                          _vm._v(
-                            "\n                " +
-                              _vm._s(friend.data.attributes.friend_info.name) +
-                              "\n              "
-                          )
-                        ])
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "text-sm text-gray-600" }, [
-                      _vm._v(
-                        "\n                " +
-                          _vm._s(friend.data.attributes.confirmed_at) +
-                          "\n            "
-                      )
-                    ])
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "absolute right-0 " }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass:
-                        "mr-2 py-1 px-3 text-blue-100 rounded bg-blue-500",
-                      on: {
-                        click: function($event) {
-                          return _vm.$store.dispatch(
-                            "acceptFriendRequest",
-                            friend.data.attributes.friend_info.friend_id
-                          )
-                        }
-                      }
-                    },
-                    [_vm._v("\n              Accept\n            ")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "mr-2 py-1 px-3 rounded bg-gray-400",
-                      on: {
-                        click: function($event) {
-                          return _vm.$store.dispatch("IgnoreFriendRequest", {
-                            friend_id:
-                              friend.data.attributes.friend_info.friend_id,
-                            key: friendKey
-                          })
-                        }
-                      }
-                    },
-                    [_vm._v("\n              Cancel\n            ")]
-                  )
-                ])
-              ])
-            ])
-          ]
+          [_vm._v("\n    You have not premission to acces this rout ...\n  ")]
         )
-      })
-    ],
-    2
-  )
+      : _vm._e()
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -25776,139 +26036,167 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "flex flex-col items-center" },
-    [
-      _c("div", { staticClass: "relative w-full mb-8" }, [
-        _c("div", { staticClass: "w-100 h-64 overflow-hidden z-10" }, [
-          _c("img", {
-            staticClass: "object-cover w-full",
-            attrs: {
-              "image-width": "1500",
-              src: _vm.user.data.attributes.cover_image.data.attributes.path,
-              "image-height": "500",
-              location: "cover"
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c(
+  return _c("div", [
+    _vm.$route.params.friendId == _vm.authUser.data.user_id
+      ? _c(
           "div",
-          {
-            staticClass: "absolute bottom-0 left-0 -mb-8 flex items-center z-20"
-          },
+          { staticClass: "flex flex-col items-center" },
           [
-            _c("img", {
-              staticClass:
-                "'w-32 h-32  ml-8 rounded-full object-cover border-gray-200 border-4 shadow-lg'",
-              attrs: {
-                "image-width": "750",
-                "image-height": "750",
-                alt: "'profile image'",
-                src: _vm.user.data.attributes.profile_image.data.attributes.path
-              }
-            }),
+            _c("div", { staticClass: "relative w-full mb-8" }, [
+              _c("div", { staticClass: "w-100 h-64 overflow-hidden z-10" }, [
+                _c("img", {
+                  staticClass: "object-cover w-full",
+                  attrs: {
+                    "image-width": "1500",
+                    src:
+                      _vm.authUser.data.attributes.cover_image.data.attributes
+                        .path,
+                    "image-height": "500",
+                    location: "cover"
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "absolute bottom-0 left-0 -mb-8 flex items-center z-20"
+                },
+                [
+                  _c("img", {
+                    staticClass:
+                      "'w-32 h-32  ml-8 rounded-full object-cover border-gray-200 border-4 shadow-lg'",
+                    attrs: {
+                      "image-width": "750",
+                      "image-height": "750",
+                      alt: "'profile image'",
+                      src:
+                        _vm.authUser.data.attributes.profile_image.data
+                          .attributes.path
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "text-2xl text-gray-600 ml-8" }, [
+                    _vm._v(_vm._s(_vm.authUser.data.attributes.name))
+                  ])
+                ]
+              )
+            ]),
             _vm._v(" "),
-            _c("p", { staticClass: "text-2xl text-gray-600 ml-8" }, [
-              _vm._v(_vm._s(_vm.user.data.attributes.name))
-            ])
-          ]
+            _vm._l(_vm.authUser.data.attributes.friendships.data, function(
+              friend,
+              friendKey
+            ) {
+              return _c(
+                "div",
+                {
+                  key: friendKey,
+                  staticClass:
+                    "bg-white rounded shadow w-2/3 mt-6 pl-4 overflow-hidden"
+                },
+                [
+                  _c("div", { staticClass: "p-4" }, [
+                    _c("div", { staticClass: "flex items-center relative" }, [
+                      _c("div", { staticClass: "w-8" }, [
+                        friend.data.attributes.friend_info.image
+                          ? _c("img", {
+                              staticClass: "w-8 h-8 object-cover rounded-full",
+                              attrs: {
+                                src:
+                                  "../storage/" +
+                                  friend.data.attributes.friend_info.image,
+                                alt: "img"
+                              }
+                            })
+                          : _c("img", {
+                              staticClass: "w-8 h-8 object-cover rounded-full",
+                              attrs: {
+                                src: "../storage/user-images/person1.png"
+                              }
+                            })
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "ml-6" },
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              attrs: {
+                                to:
+                                  "/users/" +
+                                  friend.data.attributes.friend_info.friend_id
+                              }
+                            },
+                            [
+                              _c("div", { staticClass: "text-sm font-bold" }, [
+                                _vm._v(
+                                  "\n                  " +
+                                    _vm._s(
+                                      friend.data.attributes.friend_info.name
+                                    ) +
+                                    "\n                "
+                                )
+                              ])
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "text-sm text-gray-600" }, [
+                            _vm._v(
+                              "\n                  " +
+                                _vm._s(friend.data.attributes.confirmed_at) +
+                                "\n              "
+                            )
+                          ])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "absolute right-0 " }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "mr-2 py-1 px-3 rounded bg-gray-400",
+                            on: {
+                              click: function($event) {
+                                return _vm.$store.dispatch(
+                                  "CancelFriendShips",
+                                  {
+                                    friend_id:
+                                      friend.data.attributes.friend_info
+                                        .friend_id,
+                                    key: friendKey
+                                  }
+                                )
+                              }
+                            }
+                          },
+                          [_vm._v("\n                Cancel\n              ")]
+                        )
+                      ])
+                    ])
+                  ])
+                ]
+              )
+            })
+          ],
+          2
         )
-      ]),
-      _vm._v(" "),
-      _vm._l(_vm.authUser.data.attributes.friendships.data, function(
-        friend,
-        friendKey
-      ) {
-        return _c(
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.$route.params.friendId != _vm.authUser.data.user_id
+      ? _c(
           "div",
           {
-            key: friendKey,
             staticClass:
-              "bg-white rounded shadow w-2/3 mt-6 pl-4 overflow-hidden"
+              "bg-red-100 rounded shadow w-2/3 m-40 p-10 text-red-500 text-2xl overflow-hidden"
           },
-          [
-            _c("div", { staticClass: "p-4" }, [
-              _c("div", { staticClass: "flex items-center relative" }, [
-                _c("div", { staticClass: "w-8" }, [
-                  friend.data.attributes.friend_info.image
-                    ? _c("img", {
-                        staticClass: "w-8 h-8 object-cover rounded-full",
-                        attrs: {
-                          src:
-                            "../storage/" +
-                            friend.data.attributes.friend_info.image,
-                          alt: "img"
-                        }
-                      })
-                    : _c("img", {
-                        staticClass: "w-8 h-8 object-cover rounded-full",
-                        attrs: { src: "../storage/user-images/person1.png" }
-                      })
-                ]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "ml-6" },
-                  [
-                    _c(
-                      "router-link",
-                      {
-                        attrs: {
-                          to:
-                            "/users/" +
-                            friend.data.attributes.friend_info.friend_id
-                        }
-                      },
-                      [
-                        _c("div", { staticClass: "text-sm font-bold" }, [
-                          _vm._v(
-                            "\n                " +
-                              _vm._s(friend.data.attributes.friend_info.name) +
-                              "\n              "
-                          )
-                        ])
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "text-sm text-gray-600" }, [
-                      _vm._v(
-                        "\n                " +
-                          _vm._s(friend.data.attributes.confirmed_at) +
-                          "\n            "
-                      )
-                    ])
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "absolute right-0 " }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "mr-2 py-1 px-3 rounded bg-gray-400",
-                      on: {
-                        click: function($event) {
-                          return _vm.$store.dispatch("CancelFriendShips", {
-                            friend_id:
-                              friend.data.attributes.friend_info.friend_id,
-                            key: friendKey
-                          })
-                        }
-                      }
-                    },
-                    [_vm._v("\n              Cancel\n            ")]
-                  )
-                ])
-              ])
-            ])
-          ]
+          [_vm._v("\n    You have not premission to acces this rout ...\n  ")]
         )
-      })
-    ],
-    2
-  )
+      : _vm._e()
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

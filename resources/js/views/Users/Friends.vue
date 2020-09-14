@@ -1,9 +1,11 @@
 <template>
-  <div class="flex flex-col items-center">
+<div>
+  <div class="flex flex-col items-center"
+    v-if="$route.params.friendId == authUser.data.user_id ">
     <div class="relative w-full mb-8">
       <div class="w-100 h-64 overflow-hidden z-10">
         <img image-width='1500'
-          :src="user.data.attributes.cover_image.data.attributes.path" class="object-cover w-full"
+          :src="authUser.data.attributes.cover_image.data.attributes.path" class="object-cover w-full"
           image-height='500' location='cover'
         />
       </div>
@@ -13,9 +15,9 @@
           image-height='750'
           alt="'profile image'"
           class="'w-32 h-32  ml-8 rounded-full object-cover border-gray-200 border-4 shadow-lg'"
-          :src="user.data.attributes.profile_image.data.attributes.path"
+          :src="authUser.data.attributes.profile_image.data.attributes.path"
         />
-        <p class="text-2xl text-gray-600 ml-8">{{ user.data.attributes.name }}</p>
+        <p class="text-2xl text-gray-600 ml-8">{{ authUser.data.attributes.name }}</p>
       </div>
     </div>
     <div
@@ -61,6 +63,12 @@
         </div>
     </div>
   </div>
+  <div
+    v-if="$route.params.friendId != authUser.data.user_id "
+    class="bg-red-100 rounded shadow w-2/3 m-40 p-10 text-red-500 text-2xl overflow-hidden">
+    You have not premission to acces this rout ...
+  </div>
+</div>
 </template>
 
 <script>
@@ -77,8 +85,6 @@ export default {
 
   computed: {
     ...mapGetters({
-      user: "user",
-      status:'status',
       authUser:'authUser',
     }),
   }
