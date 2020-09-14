@@ -14,14 +14,14 @@ class PostController extends Controller
   public function index()
   {
     $friends=Friend::friendships();
-
     if($friends->isEmpty()){
-    return new PostCollection(request()->user()->posts);
+      return new PostCollection(request()->user()->posts);
     }
+
     return new PostCollection(
-    Post::whereIn('user_id',[$friends->pluck('user_id'),$friends->pluck('friend_id')])->get()
+    Post::whereIn('user_id',$friends->pluck('user_id'))
+    ->orWhereIn('user_id',$friends->pluck('friend_id'))->get()
     );
-    // return request()->user()->posts;
   }
 
   public function store()
