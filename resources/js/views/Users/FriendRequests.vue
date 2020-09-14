@@ -25,100 +25,102 @@
       class="bg-white rounded shadow w-2/3 mt-6 pl-6 p-3 text-lg text-green-900 overflow-hidden">You send this requestes ...
     </div> -->
     <div
-      class="bg-white rounded shadow w-2/3 mt-6 pl-4 overflow-hidden"
+      class="bg-white rounded shadow w-2/3 mt-3 pl-4 overflow-hidden"
       v-for="(friend,friendKey) in
         authUser.data.attributes.friendequests.data"
-        :key="friendKey"
-      v-if="friend.data.attributes.user_id != authUser.data.user_id ">
-      <div class="p-4">
+        :key="friendKey">
+      <div 
+      v-if="friend.data.attributes.user_id != authUser.data.user_id "
+        class="p-4">
         <div class="flex items-center relative">
-            <div class="w-8">
-              <img
-                v-if="friend.data.attributes.friend_info.image"
-                :src="'../storage/' + friend.data.attributes.friend_info.image"
-                alt="img"
-                class="w-8 h-8 object-cover rounded-full"
-              />
-              <img v-else
-                :src="'../storage/user-images/person1.png'"
-                class="w-8 h-8 object-cover rounded-full"
-              />
-            </div>
-            <div class="ml-6">
+          <div class="w-8">
+            <img
+              v-if="friend.data.attributes.friend_info.image"
+              :src="'../storage/' + friend.data.attributes.friend_info.image"
+              alt="img"
+              class="w-8 h-8 object-cover rounded-full"
+            />
+            <img v-else
+              :src="'../storage/user-images/person1.png'"
+              class="w-8 h-8 object-cover rounded-full"
+            />
+          </div>
+          <div class="ml-6">
             <a class=' text-sm text-gray-700'>From</a>
-              <router-link
-                :to="'/users/'  + friend.data.attributes.friend_info.friend_id">
-                <div class="text-sm font-bold">
-                  {{ friend.data.attributes.friend_info.name }}
-                </div>
-              </router-link>
-              <div class="text-sm text-gray-600">
-                  {{ friend.data.attributes.confirmed_at }}
+            <router-link
+              :to="'/users/'  + friend.data.attributes.friend_info.friend_id">
+              <div class="text-sm font-bold">
+                {{ friend.data.attributes.friend_info.name }}
               </div>
-            </div>
-            <div class="absolute right-0 ">
-              <button
-                class="mr-2 py-1 px-3 text-blue-100 rounded bg-blue-500"
-                @click="$store.dispatch('acceptFriendRequest',friend.data.attributes.friend_info.friend_id)">
-                Accept
-              </button>
-              <button class="mr-2 py-1 px-3 rounded bg-gray-400"
-                @click="$store.dispatch('IgnoreFriendRequest',{
-                  friend_id:friend.data.attributes.friend_info.friend_id,
-                  key:friendKey
-                })">
-                Cancel
-              </button>
+            </router-link>
+            <div class="text-sm text-gray-600">
+                {{ friend.data.attributes.confirmed_at }}
             </div>
           </div>
+          <div class="absolute right-0 ">
+            <button
+              class="mr-2 py-1 px-3 text-blue-100 rounded bg-blue-500"
+              @click="$store.dispatch('acceptFriendRequest',friend.data.attributes.friend_info.friend_id)">
+              Accept
+            </button>
+            <button class="mr-2 py-1 px-3 rounded bg-gray-400"
+              @click="$store.dispatch('IgnoreFriendRequest',{
+                friend_id:friend.data.attributes.friend_info.friend_id,
+                key:friendKey
+              })">
+              Cancel
+            </button>
+          </div>
         </div>
+      </div>
     </div>
     <!-- <div
       class="bg-white rounded shadow w-2/3 mt-12 pl-6 p-3 text-lg text-green-900 overflow-hidden">You received this requestes ...
     </div> -->
     <div
-      class="bg-white rounded shadow w-2/3 mt-6 pl-4 overflow-hidden"
+      class="bg-white rounded shadow w-2/3 mt-3 pl-4 overflow-hidden"
       v-for="(friend,friendKey) in
         authUser.data.attributes.friendequests.data"
-        :key="friendKey"
-      v-if="friend.data.attributes.user_id == authUser.data.user_id ">
-      <div class="p-4">
+        :key="friendKey">
+      <div 
+      v-if="friend.data.attributes.user_id == authUser.data.user_id "
+        class="p-4">
         <div class="flex items-center relative">
-            <div class="w-8">
-              <img
-                v-if="friend.data.attributes.friend_info.image"
-                :src="'../storage/' + friend.data.attributes.friend_info.image"
-                alt="img"
-                class="w-8 h-8 object-cover rounded-full"
-              />
-              <img v-else
-                :src="'../storage/user-images/person1.png'"
-                class="w-8 h-8 object-cover rounded-full"
-              />
-            </div>
-            <div class="ml-6">
-            <a class=' text-sm text-gray-700'>To</a>
-              <router-link
-                :to="'/users/'  + friend.data.attributes.friend_info.friend_id">
-                <div class="text-sm font-bold">
-                  {{ friend.data.attributes.friend_info.name }}
-                </div>
-              </router-link>
-              <div class="text-sm text-gray-600">
-                  {{ friend.data.attributes.confirmed_at }}
+          <div class="w-8">
+            <img
+              v-if="friend.data.attributes.friend_info.image"
+              :src="'../storage/' + friend.data.attributes.friend_info.image"
+              alt="img"
+              class="w-8 h-8 object-cover rounded-full"
+            />
+            <img v-else
+              :src="'../storage/user-images/person1.png'"
+              class="w-8 h-8 object-cover rounded-full"
+            />
+          </div>
+          <div class="ml-6">
+          <a class=' text-sm text-gray-700'>To</a>
+            <router-link
+              :to="'/users/'  + friend.data.attributes.friend_info.friend_id">
+              <div class="text-sm font-bold">
+                {{ friend.data.attributes.friend_info.name }}
               </div>
-            </div>
-            <div class="absolute right-0 ">
-              <button class="mr-2 py-1 px-3 rounded bg-gray-400"
-                @click="$store.dispatch('IgnoreFriendRequest',{
-                  friend_id:friend.data.attributes.friend_info.friend_id,
-                  key:friendKey
-                })">
-                Cancel
-              </button>
+            </router-link>
+            <div class="text-sm text-gray-600">
+                {{ friend.data.attributes.confirmed_at }}
             </div>
           </div>
+          <div class="absolute right-0 ">
+            <button class="mr-2 py-1 px-3 rounded bg-gray-400"
+              @click="$store.dispatch('IgnoreFriendRequest',{
+                friend_id:friend.data.attributes.friend_info.friend_id,
+                key:friendKey
+              })">
+              Cancel
+            </button>
+          </div>
         </div>
+      </div>
     </div>
   </div>
   <div
@@ -130,26 +132,20 @@
 </template>
 
 <script>
-// import Post from "../../components/Post";
 import { mapGetters } from "vuex";
 import { Store } from 'vuex';
 
 export default {
   name: "Friends",
   components: {
-    // Post,
   },
   computed: {
   ...mapGetters({
-      // user: "user",
-      // posts: "posts",
-      // status:'status',
       authUser:'authUser',
     }),
   },
   mounted() {
     this.$store.dispatch('fetchUser',this.$route.params.friendId);
-    // this.$store.dispatch("fetchUserPosts", this.$route.params.friendId);
   },
   methods:{
     acceptFriendRequest(){

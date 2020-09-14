@@ -2691,21 +2691,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-// import Post from "../../components/Post";
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Friends",
-  components: {// Post,
-  },
+  components: {},
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
-    // user: "user",
-    // posts: "posts",
-    // status:'status',
     authUser: 'authUser'
   })),
   mounted: function mounted() {
-    this.$store.dispatch('fetchUser', this.$route.params.friendId); // this.$store.dispatch("fetchUserPosts", this.$route.params.friendId);
+    this.$store.dispatch('fetchUser', this.$route.params.friendId);
   },
   methods: {
     acceptFriendRequest: function acceptFriendRequest() {
@@ -25720,16 +25717,16 @@ var render = function() {
               friend,
               friendKey
             ) {
-              return friend.data.attributes.user_id != _vm.authUser.data.user_id
-                ? _c(
-                    "div",
-                    {
-                      key: friendKey,
-                      staticClass:
-                        "bg-white rounded shadow w-2/3 mt-6 pl-4 overflow-hidden"
-                    },
-                    [
-                      _c("div", { staticClass: "p-4" }, [
+              return _c(
+                "div",
+                {
+                  key: friendKey,
+                  staticClass:
+                    "bg-white rounded shadow w-2/3 mt-3 pl-4 overflow-hidden"
+                },
+                [
+                  friend.data.attributes.user_id != _vm.authUser.data.user_id
+                    ? _c("div", { staticClass: "p-4" }, [
                         _c(
                           "div",
                           { staticClass: "flex items-center relative" },
@@ -25782,12 +25779,12 @@ var render = function() {
                                       { staticClass: "text-sm font-bold" },
                                       [
                                         _vm._v(
-                                          "\n                  " +
+                                          "\n                " +
                                             _vm._s(
                                               friend.data.attributes.friend_info
                                                 .name
                                             ) +
-                                            "\n                "
+                                            "\n              "
                                         )
                                       ]
                                     )
@@ -25799,11 +25796,11 @@ var render = function() {
                                   { staticClass: "text-sm text-gray-600" },
                                   [
                                     _vm._v(
-                                      "\n                  " +
+                                      "\n                " +
                                         _vm._s(
                                           friend.data.attributes.confirmed_at
                                         ) +
-                                        "\n              "
+                                        "\n            "
                                     )
                                   ]
                                 )
@@ -25827,11 +25824,7 @@ var render = function() {
                                     }
                                   }
                                 },
-                                [
-                                  _vm._v(
-                                    "\n                Accept\n              "
-                                  )
-                                ]
+                                [_vm._v("\n              Accept\n            ")]
                               ),
                               _vm._v(" "),
                               _c(
@@ -25853,35 +25846,31 @@ var render = function() {
                                     }
                                   }
                                 },
-                                [
-                                  _vm._v(
-                                    "\n                Cancel\n              "
-                                  )
-                                ]
+                                [_vm._v("\n              Cancel\n            ")]
                               )
                             ])
                           ]
                         )
                       ])
-                    ]
-                  )
-                : _vm._e()
+                    : _vm._e()
+                ]
+              )
             }),
             _vm._v(" "),
             _vm._l(_vm.authUser.data.attributes.friendequests.data, function(
               friend,
               friendKey
             ) {
-              return friend.data.attributes.user_id == _vm.authUser.data.user_id
-                ? _c(
-                    "div",
-                    {
-                      key: friendKey,
-                      staticClass:
-                        "bg-white rounded shadow w-2/3 mt-6 pl-4 overflow-hidden"
-                    },
-                    [
-                      _c("div", { staticClass: "p-4" }, [
+              return _c(
+                "div",
+                {
+                  key: friendKey,
+                  staticClass:
+                    "bg-white rounded shadow w-2/3 mt-3 pl-4 overflow-hidden"
+                },
+                [
+                  friend.data.attributes.user_id == _vm.authUser.data.user_id
+                    ? _c("div", { staticClass: "p-4" }, [
                         _c(
                           "div",
                           { staticClass: "flex items-center relative" },
@@ -25934,12 +25923,12 @@ var render = function() {
                                       { staticClass: "text-sm font-bold" },
                                       [
                                         _vm._v(
-                                          "\n                  " +
+                                          "\n                " +
                                             _vm._s(
                                               friend.data.attributes.friend_info
                                                 .name
                                             ) +
-                                            "\n                "
+                                            "\n              "
                                         )
                                       ]
                                     )
@@ -25951,11 +25940,11 @@ var render = function() {
                                   { staticClass: "text-sm text-gray-600" },
                                   [
                                     _vm._v(
-                                      "\n                  " +
+                                      "\n                " +
                                         _vm._s(
                                           friend.data.attributes.confirmed_at
                                         ) +
-                                        "\n              "
+                                        "\n            "
                                     )
                                   ]
                                 )
@@ -25983,19 +25972,15 @@ var render = function() {
                                     }
                                   }
                                 },
-                                [
-                                  _vm._v(
-                                    "\n                Cancel\n              "
-                                  )
-                                ]
+                                [_vm._v("\n              Cancel\n            ")]
                               )
                             ])
                           ]
                         )
                       ])
-                    ]
-                  )
-                : _vm._e()
+                    : _vm._e()
+                ]
+              )
             })
           ],
           2
